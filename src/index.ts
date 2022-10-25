@@ -1,6 +1,9 @@
 import express from 'express';
 import path from 'path';
 import mongoose from 'mongoose';
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-expect-error
+import engine from 'ejs-mate';
 
 const app = express();
 
@@ -12,6 +15,7 @@ db.once('open', () => {
   console.log('Database connected');
 });
 
+app.engine('ejs', engine);
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, '../views'));
 
