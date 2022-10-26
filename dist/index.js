@@ -8,7 +8,7 @@ const path_1 = __importDefault(require("path"));
 const mongoose_1 = __importDefault(require("mongoose"));
 const ejs_mate_1 = __importDefault(require("ejs-mate"));
 const app = (0, express_1.default)();
-mongoose_1.default.connect('mongodb://localhost:27017/yelp-camp2');
+mongoose_1.default.connect('mongodb://localhost:27017/yelp-camp');
 const db = mongoose_1.default.connection;
 db.on('error', console.error.bind(console, 'connection error'));
 db.once('open', () => {
