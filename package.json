@@ -7,6 +7,7 @@
     "start": "nodemon",
     "build": "tsc",
     "list": "eslint . --ext .ts",
+    "prepare": "husky install",
     "tailwind:css": "tailwindcss -i ./public/styles/tailwind.css -o ./public/styles/styles.css --watch",
     "prettier-format": "prettier --config .prettierrc 'src/**/*.ts' --write",
     "test": "echo \"Error: no test specified\" && exit 1"
