@@ -7,7 +7,7 @@ import engine from 'ejs-mate';
 
 const app = express();
 
-mongoose.connect('mongodb://localhost:27017/yelp-camp2');
+mongoose.connect('mongodb://localhost:27017/yelp-camp');
 
 const db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error'));
