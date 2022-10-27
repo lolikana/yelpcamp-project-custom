@@ -12,7 +12,6 @@
     "standard-with-typescript",
     "prettier"
   ],
-  "files": ["*.ts", "*.tsx"],
   "overrides": [],
   "parserOptions": {
     "ecmaVersion": "latest",
@@ -30,6 +29,7 @@
     "import/no-duplicates": "error",
     "@typescript-eslint/restrict-template-expressions": "off",
     "@typescript-eslint/no-non-null-assertion": "warn",
-    "@typescript-eslint/consistent-type-definitions": "error"
+    "@typescript-eslint/consistent-type-definitions": "error",
+    "@typescript-eslint/no-misused-promises": "error"
   }
 }
