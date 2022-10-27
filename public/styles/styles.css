@@ -561,9 +561,38 @@ video {
   position: static;
 }
 
+.m-2 {
+  margin: 0.5rem;
+}
+
+.list-inside {
+  list-style-position: inside;
+}
+
+.list-disc {
+  list-style-type: disc;
+}
+
+.pl-5 {
+  padding-left: 1.25rem;
+}
+
+.pl-2 {
+  padding-left: 0.5rem;
+}
+
 .text-3xl {
   font-size: 1.875rem;
   line-height: 2.25rem;
+}
+
+.text-xl {
+  font-size: 1.25rem;
+  line-height: 1.75rem;
+}
+
+.font-bold {
+  font-weight: 700;
 }
 
 .text-blue-800 {
@@ -578,4 +607,9 @@ video {
 
 .underline {
   text-decoration-line: underline;
+}
+
+.hover\:text-red-500:hover {
+  --tw-text-opacity: 1;
+  color: rgb(239 68 68 / var(--tw-text-opacity));
 }
