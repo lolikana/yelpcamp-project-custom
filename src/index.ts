@@ -4,6 +4,7 @@ import mongoose from 'mongoose';
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-expect-error
 import engine from 'ejs-mate';
+import { CampgroundModel } from './models/campgrounds';
 
 const app = express();
 
@@ -23,6 +24,11 @@ app.use(express.static(path.join(__dirname, '../public')));
 
 app.get('/', (_req, res) => {
   res.render('index');
+});
+
+app.get('/campgrounds', async (_req, res) => {
+  const campgrounds = await CampgroundModel.find({});
+  res.render('campgrounds/index', { campgrounds });
 });
 
 app.listen(3000, () => {
