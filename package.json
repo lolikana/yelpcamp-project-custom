@@ -6,7 +6,7 @@
   "scripts": {
     "start": "nodemon",
     "build": "tsc",
-    "list": "eslint . --ext .ts",
+    "lint": "eslint . --ext .ts --ignore-path .gitignore .",
     "prepare": "husky install",
     "tailwind:css": "tailwindcss -i ./public/styles/tailwind.css -o ./public/styles/styles.css --watch",
     "prettier-format": "prettier --config .prettierrc 'src/**/*.ts' --write",
