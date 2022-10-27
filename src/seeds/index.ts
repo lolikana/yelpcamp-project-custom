@@ -1,10 +1,13 @@
 import mongoose from 'mongoose';
-import { CampgroundModel } from '../models/campgrounds';
 
+import { CampgroundModel } from '../models/campgrounds';
 import { cities } from './cities';
 import { descriptors, places } from './helpers';
 
-mongoose.connect('mongodb://localhost:27017/yelp-camp');
+mongoose
+  .connect('mongodb://localhost:27017/yelp-camp')
+  .then(res => console.log(res))
+  .catch(err => console.log(err));
 
 const db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));
