@@ -7,7 +7,10 @@ const mongoose_1 = __importDefault(require("mongoose"));
 const campgrounds_1 = require("../models/campgrounds");
 const cities_1 = require("./cities");
 const helpers_1 = require("./helpers");
-mongoose_1.default.connect('mongodb://localhost:27017/yelp-camp');
+mongoose_1.default
+    .connect('mongodb://localhost:27017/yelp-camp')
+    .then(res => console.log(res))
+    .catch(err => console.log(err));
 const db = mongoose_1.default.connection;
 db.on('error', console.error.bind(console, 'connection error:'));
 db.once('open', () => {

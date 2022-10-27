@@ -1,4 +1,5 @@
 import { model, Schema } from 'mongoose';
+
 import { ICampground } from '../libs/types';
 
 const CampgroundSchema = new Schema<ICampground>({

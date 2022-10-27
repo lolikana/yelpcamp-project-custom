@@ -5,6 +5,8 @@
 </div>
 <ul class="list-inside list-disc pl-2">
   <% for (let campground of campgrounds) { %>
-  <li class="hover:text-red-500"><%= campground.title %></li>
+  <li class="hover:text-red-500">
+    <a href="/campgrounds/<%= campground._id %>"><%= campground.title %> </a>
+  </li>
   <% } %>
 </ul>
