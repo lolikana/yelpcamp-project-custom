@@ -1,3 +1,12 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer components {
+  .btn-back {
+    @apply my-2 ml-1 rounded-md border-2 border-solid border-black bg-orange-400 py-1 px-2 font-semibold hover:bg-orange-300;
+  }
+  .btn-submit {
+    @apply my-2 ml-1 rounded-md border-2 border-transparent bg-blue-600 py-1 px-2 font-semibold text-white hover:border-2 hover:border-solid hover:border-blue-400 hover:bg-white hover:text-blue-600;
+  }
+}

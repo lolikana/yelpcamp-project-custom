@@ -5,7 +5,7 @@ export interface ICampground {
   location: string;
 }
 
-export type TCity = {
+export interface TCity {
   city: string;
   growth_from_2000_to_2013: string;
   latitude: number;
@@ -13,4 +13,4 @@ export type TCity = {
   population: string;
   rank: string;
   state: string;
-};
+}
