@@ -1,7 +1,7 @@
 <% layout("layout/boilerplate.ejs") %>
-<h1 class="page-h1">Add Campground</h1>
+<h1 class="page-h1">Edit Campground</h1>
 
-<form action="/campgrounds" method="POST">
+<form action="/campgrounds/<%= campground._id %>?_method=PUT" method="POST">
   <div class="flex gap-4">
     <div class="flex flex-col">
       <label for="title" class="mb-2 block text-sm font-medium text-gray-900"
@@ -12,6 +12,7 @@
         type="text"
         id="title"
         name="campground[title]"
+        value="<%= campground.title %> "
         required
       />
     </div>
@@ -24,11 +25,12 @@
         type="text"
         id="location"
         name="campground[location]"
+        value="<%= campground.location %>"
         required
       />
     </div>
   </div>
-  <button class="btn-submit">Add Campground</button>
+  <button class="btn-submit">Edit Campground</button>
 </form>
 <footer class="m-2">
   <div>

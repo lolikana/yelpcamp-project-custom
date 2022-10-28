@@ -2,6 +2,7 @@
 // @ts-expect-error
 import engine from 'ejs-mate';
 import express, { RequestHandler } from 'express';
+import methodOverride from 'method-override';
 import mongoose from 'mongoose';
 import path from 'path';
 
@@ -28,6 +29,7 @@ app.use(express.static(path.join(__dirname, '../public')));
 
 // It parses incoming requests with urlencoded payloads and is based on body-parser.
 app.use(express.urlencoded({ extended: true }));
+app.use(methodOverride('_method'));
 
 app.get('/', (_req, res) => {
   res.render('index');
@@ -43,15 +45,32 @@ app.get('/campgrounds/new', (_req, res) => {
 });
 
 app.post('/campgrounds', (async (req, res) => {
-  const newCampground = new CampgroundModel(req.body.campground);
-  await newCampground.save();
-  res.redirect(`/campgrounds/${newCampground._id}`);
+  const campground = new CampgroundModel(req.body.campground);
+  await campground.save();
+  res.redirect(`/campgrounds/${campground._id}`);
 }) as RequestHandler);
 
 app.get('/campgrounds/:id', (async (req, res) => {
   const { id } = req.params;
   const campground = await CampgroundModel.findById(id);
   res.render(`campgrounds/detail`, { id, campground });
+}) as RequestHandler);
+
+app.get('/campgrounds/:id/edit', (async (req, res) => {
+  const campground = await CampgroundModel.findById(req.params.id);
+  res.render('campgrounds/edit', { campground });
+}) as RequestHandler);
+
+app.put('/campgrounds/:id', (async (req, res) => {
+  const { id } = req.params;
+  const campground = await CampgroundModel.findByIdAndUpdate(
+    id,
+    {
+      ...req.body.campground
+    },
+    { new: true }
+  );
+  res.redirect(`/campgrounds/${campground?._id}`);
 }) as RequestHandler);
 
 app.listen(3000, () => {
