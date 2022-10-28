@@ -22,12 +22,21 @@ app.engine('ejs', ejs_mate_1.default);
 app.set('view engine', 'ejs');
 app.set('views', path_1.default.join(__dirname, '../views'));
 app.use(express_1.default.static(path_1.default.join(__dirname, '../public')));
+app.use(express_1.default.urlencoded({ extended: true }));
 app.get('/', (_req, res) => {
     res.render('index');
 });
 app.get('/campgrounds', (async (_req, res) => {
     const campgrounds = await campgrounds_1.CampgroundModel.find({});
     res.render('campgrounds/index', { campgrounds });
+}));
+app.get('/campgrounds/new', (_req, res) => {
+    res.render('campgrounds/new');
+});
+app.post('/campgrounds', (async (req, res) => {
+    const newCampground = new campgrounds_1.CampgroundModel(req.body.campground);
+    await newCampground.save();
+    res.redirect(`/campgrounds/${newCampground._id}`);
 }));
 app.get('/campgrounds/:id', (async (req, res) => {
     const { id } = req.params;

@@ -26,6 +26,9 @@ app.set('views', path.join(__dirname, '../views'));
 
 app.use(express.static(path.join(__dirname, '../public')));
 
+// It parses incoming requests with urlencoded payloads and is based on body-parser.
+app.use(express.urlencoded({ extended: true }));
+
 app.get('/', (_req, res) => {
   res.render('index');
 });
@@ -33,6 +36,16 @@ app.get('/', (_req, res) => {
 app.get('/campgrounds', (async (_req, res) => {
   const campgrounds = await CampgroundModel.find({});
   res.render('campgrounds/index', { campgrounds });
+}) as RequestHandler);
+
+app.get('/campgrounds/new', (_req, res) => {
+  res.render('campgrounds/new');
+});
+
+app.post('/campgrounds', (async (req, res) => {
+  const newCampground = new CampgroundModel(req.body.campground);
+  await newCampground.save();
+  res.redirect(`/campgrounds/${newCampground._id}`);
 }) as RequestHandler);
 
 app.get('/campgrounds/:id', (async (req, res) => {
