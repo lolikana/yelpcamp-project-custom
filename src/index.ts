@@ -26,6 +26,7 @@ app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, '../views'));
 
 app.use(express.static(path.join(__dirname, '../public')));
+app.use(express.static(path.join(__dirname, '../dist')));
 
 // It parses incoming requests with urlencoded payloads and is based on body-parser.
 app.use(express.urlencoded({ extended: true }));
