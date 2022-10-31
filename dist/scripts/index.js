@@ -2,6 +2,17 @@
 const navMenuTarget = document.getElementById('navbar__solid-bg');
 const burgerTrigger = document.getElementById('burger__btn');
 const navLink = document.querySelectorAll('[aria-current]');
+const url = document.URL.slice(21);
+console.log(url);
+console.log(navLink);
+for (let i = 0; i < navLink.length; i++) {
+    console.log(navLink[i]);
+    if (navLink[i].getAttribute('href') === url) {
+        console.log(navLink[i].getAttribute('href') === url);
+        console.log(navLink[i]);
+        navLink[i].classList.add('current-page');
+    }
+}
 burgerTrigger?.addEventListener('click', () => {
     if (burgerTrigger.getAttribute('aria-expanded') === 'false') {
         burgerTrigger.setAttribute('aria-expanded', 'true');
@@ -22,10 +33,4 @@ window.addEventListener('resize', (_e) => {
         navMenuTarget?.classList.add('hidden');
     }
 });
-const url = document.URL.slice(21);
-for (let i = 0; i < navLink.length; i++) {
-    if (navLink[i].getAttribute('href') === url) {
-        navLink[i].classList.add('current');
-    }
-}
-//# sourceMappingURL=scripts.js.map
+//# sourceMappingURL=index.js.map

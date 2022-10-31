@@ -19,7 +19,7 @@
     @apply my-2 ml-1 rounded-md border-2 border-solid border-blue-500 py-1 px-2 font-semibold text-blue-500  hover:border-transparent  hover:bg-blue-600 hover:text-white;
   }
 
-  .current {
-    @apply text-red-700;
+  .current-page {
+    @apply bg-gray-100 text-black hover:bg-gray-200 !important;
   }
 }
