@@ -8,7 +8,7 @@ const campgrounds_1 = require("../models/campgrounds");
 const cities_1 = require("./cities");
 const helpers_1 = require("./helpers");
 mongoose_1.default
-    .connect('mongodb://localhost:27017/yelp-camp')
+    .connect('mongodb://127.0.0.1:27017/yelp-camp')
     .then(res => console.log(res))
     .catch(err => console.log(err));
 const db = mongoose_1.default.connection;

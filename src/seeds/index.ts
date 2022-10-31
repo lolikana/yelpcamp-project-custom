@@ -5,7 +5,7 @@ import { cities } from './cities';
 import { descriptors, places } from './helpers';
 
 mongoose
-  .connect('mongodb://localhost:27017/yelp-camp')
+  .connect('mongodb://127.0.0.1:27017/yelp-camp')
   .then(res => console.log(res))
   .catch(err => console.log(err));
 

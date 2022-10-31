@@ -11,7 +11,7 @@ const path_1 = __importDefault(require("path"));
 const campgrounds_1 = require("./models/campgrounds");
 const app = (0, express_1.default)();
 mongoose_1.default
-    .connect('mongodb://localhost:27017/yelp-camp')
+    .connect('mongodb://127.0.0.1:27017/yelp-camp')
     .then(res => res)
     .catch(err => console.log(err));
 const db = mongoose_1.default.connection;
