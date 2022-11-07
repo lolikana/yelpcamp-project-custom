@@ -18,7 +18,9 @@
     }
   },
   "lint-staged": {
-    "[src/**/*.{ts, ejs}, *.json, public/**/*.css]": "prettier --write",
+    "*.json": "prettier --write",
+    "src/**/*.{ts, ejs}": "prettier --write",
+    "public/**/*.css": "prettier --write",
     "src/**/*.ts": "eslint --cache --fix",
     "*.ts": "tsc --noEmit"
   },
