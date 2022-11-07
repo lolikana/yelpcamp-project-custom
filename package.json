@@ -18,7 +18,7 @@
     }
   },
   "lint-staged": {
-    "!(node_modules/**/*)*.{js, ts, ejs, css}": "prettier --write",
+    "!(node_modules)/**/*.{js, ts, ejs, css}": "prettier --write",
     "!(node_modules)/**/*.ts": "eslint --cache --fix"
   },
   "keywords": [],
