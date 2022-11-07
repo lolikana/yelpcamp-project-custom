@@ -14,13 +14,13 @@
   },
   "husky": {
     "hooks": {
-      "pre-commit": "npx --lint-staged"
+      "pre-commit": "lint-staged"
     }
   },
   "lint-staged": {
     "src/**/*.{ts, ejs}": "prettier --write",
     "public/**/*.css": "prettier --write",
-    "src/**/*.ts": "eslint"
+    "src/**/*.ts": "eslint --cache --fix"
   },
   "keywords": [],
   "author": "",
