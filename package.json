@@ -18,9 +18,8 @@
     }
   },
   "lint-staged": {
-    "src/**/*.{ts, ejs}": "prettier --write",
-    "public/**/*.css": "prettier --write",
-    "src/**/*.ts": "eslint --cache --fix"
+    "!(node_modules/**/*)*.{js, ts, ejs, css}": "prettier --write",
+    "!(node_modules/**/*)*.ts": "eslint --cache --fix"
   },
   "keywords": [],
   "author": "",
