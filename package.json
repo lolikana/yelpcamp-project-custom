@@ -14,8 +14,13 @@
   },
   "husky": {
     "hooks": {
-      "pre-commit": "pretty-quick --staged"
+      "pre-commit": "npx --lint-staged"
     }
+  },
+  "lint-staged": {
+    "src/**/*.{ts, ejs}": "prettier --write",
+    "public/**/*.css": "prettier --write",
+    "src/**/*.ts": "eslint"
   },
   "keywords": [],
   "author": "",

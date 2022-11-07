@@ -21,7 +21,7 @@ db.once('open', () => {
 });
 app.engine('ejs', ejs_mate_1.default);
 app.set('view engine', 'ejs');
-app.set('views', path_1.default.join(__dirname, '../views'));
+app.set('views', path_1.default.join(__dirname, './views'));
 app.use(express_1.default.static(path_1.default.join(__dirname, '../public')));
 app.use(express_1.default.static(path_1.default.join(__dirname, '../dist')));
 app.use(express_1.default.urlencoded({ extended: true }));

@@ -2,8 +2,8 @@
 module.exports = {
   content: [
     './src/**/*.ts',
-    './views/**/*.ejs',
-    './views/layouts/boilerplate.ejs'
+    './src/views/**/*.ejs',
+    './src/views/layouts/boilerplate.ejs'
   ],
   theme: {
     extend: {}
