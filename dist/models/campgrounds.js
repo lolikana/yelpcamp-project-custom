@@ -4,9 +4,10 @@ exports.CampgroundModel = void 0;
 const mongoose_1 = require("mongoose");
 const CampgroundSchema = new mongoose_1.Schema({
     title: String,
+    image: String,
     price: {
-        type: String,
-        default: 'unknown'
+        type: Number,
+        default: 0
     },
     description: {
         type: String,

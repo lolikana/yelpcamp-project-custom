@@ -1,6 +1,7 @@
 export interface ICampground {
   title: string;
-  price: string;
+  image: string;
+  price: number;
   description: string;
   location: string;
 }
