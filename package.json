@@ -6,11 +6,12 @@
   "scripts": {
     "start": "nodemon",
     "build": "npx tsc -w",
-    "lint": "eslint . --ext .ts --ignore-path .gitignore .",
+    "lint": "eslint --fix -f table --ignore-path .gitignore .",
     "prepare": "husky install",
     "tailwind:css": "tailwindcss -i ./public/styles/tailwind.css -o ./public/styles/styles.css --watch",
     "prettier-format": "prettier --config .prettierrc 'src/**/*.ts' --write",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "lint-staged": "lint-staged"
   },
   "husky": {
     "hooks": {
@@ -18,11 +19,10 @@
     }
   },
   "lint-staged": {
-    "*.json": "prettier --write",
-    "src/**/*.{ts, ejs}": "prettier --write",
-    "public/**/*.css": "prettier --write",
-    "src/**/*.ts": "eslint --cache --fix",
-    "*.ts": "tsc --noEmit"
+    "*.{ts,json,css,js,md}": [
+      "prettier --write"
+    ],
+    "*.ts": "eslint --fix -f table"
   },
   "keywords": [],
   "author": "",
@@ -35,6 +35,7 @@
     "eslint": "^8.26.0",
     "eslint-config-prettier": "^8.5.0",
     "eslint-config-standard-with-typescript": "^23.0.0",
+    "eslint-formatter-table": "^7.32.1",
     "eslint-plugin-import": "^2.26.0",
     "eslint-plugin-n": "^15.3.0",
     "eslint-plugin-promise": "^6.1.1",
