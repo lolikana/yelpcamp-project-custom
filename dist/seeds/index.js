@@ -9,7 +9,7 @@ const cities_1 = require("./cities");
 const helpers_1 = require("./helpers");
 mongoose_1.default
     .connect('mongodb://127.0.0.1:27017/yelp-camp')
-    .then(res => console.log(res))
+    .then(res => res)
     .catch(err => console.log(err));
 const db = mongoose_1.default.connection;
 db.on('error', console.error.bind(console, 'connection error:'));
@@ -21,8 +21,12 @@ const seedDB = async () => {
     await campgrounds_1.CampgroundModel.deleteMany({});
     for (let i = 0; i < 50; i++) {
         const random1000 = Math.floor(Math.random() * 1000);
+        const randomPrice = Math.floor(Math.random() * 20) + 10;
         const camp = new campgrounds_1.CampgroundModel({
             title: `${sample(helpers_1.descriptors)} ${sample(helpers_1.places)}`,
+            image: 'https://source.unsplash.com/collection/483251',
+            description: 'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Corrupti sit commodi quos autem asperiores esse nihil magni in iste sapiente. Enim nemo officia debitis repellendus, sunt numquam dicta expedita perferendis.',
+            price: randomPrice,
             location: `${cities_1.cities[random1000].city}, ${cities_1.cities[random1000].state}`
         });
         await camp.save();
@@ -32,7 +36,7 @@ seedDB()
     .then(() => {
     mongoose_1.default.connection
         .close()
-        .then(res => console.log(res))
+        .then(res => res)
         .catch(err => console.log(err));
 })
     .catch(err => console.log(err));
