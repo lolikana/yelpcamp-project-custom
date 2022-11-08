@@ -4,9 +4,10 @@ import { ICampground } from '../libs/types';
 
 const CampgroundSchema = new Schema<ICampground>({
   title: String,
+  image: String,
   price: {
-    type: String,
-    default: 'unknown'
+    type: Number,
+    default: 0
   },
   description: {
     type: String,
