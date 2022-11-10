@@ -1,37 +1,46 @@
 <% layout("layout/boilerplate.ejs") %>
-<h1 class="page-h1">Add Campground</h1>
-
-<form action="/campgrounds" method="POST">
-  <div class="flex gap-4">
-    <div class="flex flex-col">
-      <label for="title" class="mb-2 block text-sm font-medium text-gray-900"
-        >Title</label
-      >
-      <input
-        class="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500"
-        type="text"
-        id="title"
-        name="campground[title]"
-        required
-      />
-    </div>
-    <div class="flex flex-col">
-      <label for="location" class="mb-2 block text-sm font-medium text-gray-900"
-        >Location</label
-      >
-      <input
-        class="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500"
-        type="text"
-        id="location"
-        name="campground[location]"
-        required
-      />
-    </div>
+<div class="mx-auto flex w-10/12 flex-col items-center gap-10">
+  <h1 class="page-h1 text-center">Add Campground</h1>
+  <div
+    class="w-full max-w-xl rounded-lg border border-gray-200 bg-white py-3 px-5 shadow-md dark:border-gray-600 dark:bg-gray-800 md:mb-0"
+  >
+    <form action="/campgrounds" method="POST">
+      <div class="flex flex-col justify-center gap-4 md:flex-row">
+        <div class="flex flex-1 flex-col">
+          <label
+            for="title"
+            class="mb-1 block text-sm font-medium text-gray-700 dark:text-gray-400"
+            >Title</label
+          >
+          <input
+            class="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500"
+            type="text"
+            id="title"
+            name="campground[title]"
+            required
+          />
+        </div>
+        <div class="flex flex-1 flex-col">
+          <label
+            for="location"
+            class="mb-1 block text-sm font-medium text-gray-700 dark:text-gray-400"
+            >Location</label
+          >
+          <input
+            class="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500"
+            type="text"
+            id="location"
+            name="campground[location]"
+            required
+          />
+        </div>
+      </div>
+      <div class="mt-5 flex flex-col justify-center gap-2">
+        <button class="btn-submit">Add Campground</button>
+        <div class="btn-back cursor-pointer text-center">
+          <a href="/campgrounds">Back to list</a>
+        </div>
+      </div>
+    </form>
   </div>
-  <button class="btn-submit">Add Campground</button>
-</form>
-<footer class="m-2">
-  <div>
-    <a href="/campgrounds" class="btn-back">Back to list</a>
-  </div>
-</footer>
+</div>
