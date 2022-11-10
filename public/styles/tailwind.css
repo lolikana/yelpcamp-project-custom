@@ -8,15 +8,15 @@
   }
 
   .btn-back {
-    @apply my-2 ml-1 rounded-md border-2 border-solid border-black bg-orange-400 py-1 px-2 font-semibold hover:bg-orange-300;
+    @apply h-9 rounded-md border border-black bg-orange-400 py-1 px-2 font-semibold hover:bg-orange-300;
   }
 
   .btn-submit {
-    @apply my-2 ml-1 rounded-md border-2 border-transparent bg-blue-600 py-1 px-2 font-semibold text-white hover:border-2 hover:border-solid hover:border-blue-300 hover:bg-blue-300;
+    @apply h-9 rounded-md border border-white bg-blue-600 py-1 px-2 font-semibold text-white hover:border-blue-300 hover:bg-blue-100 hover:text-blue-900;
   }
 
   .btn-delete {
-    @apply my-2 ml-1 rounded-md border-2 border-solid border-blue-500 py-1 px-2 font-semibold text-blue-500  hover:border-transparent  hover:bg-blue-600 hover:text-white;
+    @apply my-2 ml-1 rounded-md border border-blue-500 py-1 px-2 font-semibold text-blue-500  hover:border-transparent  hover:bg-blue-600 hover:text-white;
   }
 
   .current-page {
