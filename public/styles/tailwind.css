@@ -23,3 +23,20 @@
     @apply bg-gray-100 text-black hover:bg-gray-200 !important;
   }
 }
+
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+textarea:-webkit-autofill,
+textarea:-webkit-autofill:hover,
+textarea:-webkit-autofill:focus,
+select:-webkit-autofill,
+select:-webkit-autofill:hover,
+select:-webkit-autofill:focus {
+  border: transparent;
+  border-bottom: 2px solid rgb(75 85 99 / 1);
+  -webkit-text-fill-color: white;
+  -webkit-box-shadow: 0 0 0px 1000px transparent;
+  box-shadow: 0 0 0px 1000px transparent;
+  transition: background-color 5000s ease-in-out 0s;
+}
