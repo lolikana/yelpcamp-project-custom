@@ -24,28 +24,34 @@
       >
         <%= campground.title %>
       </h5>
-      <div class="flex flex-row items-center gap-1">
-        <svg
-          class="h-6 w-6 hover:cursor-pointer hover:stroke-green-600"
-          fill="none"
-          stroke="currentColor"
-          viewBox="0 0 24 24"
-          xmlns="http://www.w3.org/2000/svg"
+      <div>
+        <a
+          href=" http://maps.google.com/?q=<%= campground.location %>"
+          target="_blank"
+          class="flex w-fit flex-row items-center gap-1 transition duration-500 ease-in-out hover:text-green-600 hover:duration-500"
         >
-          <path
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            stroke-width="2"
-            d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"
-          ></path>
-          <path
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            stroke-width="2"
-            d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"
-          ></path>
-        </svg>
-        <h6 class="text-lg font-bold"><%= campground.location %></h6>
+          <svg
+            class="h-6 w-6"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"
+            ></path>
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"
+            ></path>
+          </svg>
+          <h6 class="text-lg font-bold"><%= campground.location %></h6>
+        </a>
       </div>
       <p class="mb-3 font-normal text-gray-700 line-clamp-3 dark:text-gray-400">
         <%= campground.description %>
