@@ -1,4 +1,4 @@
-<html lang="en" class="overflow-y-scroll">
+<html lang="en" class="overflow-x-hidden">
   <head>
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Comptable" content="IE=edge" />
@@ -6,9 +6,9 @@
     <title>Layout</title>
     <link rel="stylesheet" href="/styles/styles.css" />
   </head>
-  <body class="flex h-screen flex-col bg-slate-900">
+  <body class="flex h-screen flex-col bg-slate-900 text-slate-100">
     <%- include("../partials/navbar.ejs") %>
-    <main><%- body %></main>
+    <main class="flex h-full flex-col justify-center px-5"><%- body %></main>
     <%- include("../partials/footer.ejs") %>
     <script src="/scripts/index.js"></script>
   </body>
