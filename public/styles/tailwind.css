@@ -12,11 +12,11 @@
   }
 
   .btn-submit {
-    @apply h-9 rounded-md border border-white bg-blue-600 py-1 px-2 font-semibold text-white hover:border-blue-300 hover:bg-blue-100 hover:text-blue-900;
+    @apply my-2 ml-1 h-9 rounded-md border border-white bg-blue-600 py-1 px-2 font-semibold text-white hover:border-blue-300 hover:bg-blue-100 hover:text-blue-900;
   }
 
   .btn-delete {
-    @apply my-2 ml-1 rounded-md border border-blue-500 py-1 px-2 font-semibold text-blue-500  hover:border-transparent  hover:bg-blue-600 hover:text-white;
+    @apply h-9 rounded-md border border-blue-600 py-1 px-2 font-semibold text-blue-600  hover:border-transparent  hover:bg-blue-600 hover:text-white;
   }
 
   .current-page {
