@@ -800,6 +800,12 @@ video {
   height: 100%;
 }
 
+.h-fit {
+  height: -webkit-fit-content;
+  height: -moz-fit-content;
+  height: fit-content;
+}
+
 .max-h-full {
   max-height: 100%;
 }
@@ -1432,6 +1438,10 @@ select:-webkit-autofill:focus {
     display: block;
   }
 
+  .md\:inline-block {
+    display: inline-block;
+  }
+
   .md\:hidden {
     display: none;
   }
@@ -1446,6 +1456,10 @@ select:-webkit-autofill:focus {
 
   .md\:flex-wrap {
     flex-wrap: wrap;
+  }
+
+  .md\:justify-center {
+    justify-content: center;
   }
 
   .md\:justify-around {
