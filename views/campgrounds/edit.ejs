@@ -1,8 +1,8 @@
 <% layout("layout/boilerplate.ejs") %>
-<div class="mx-auto flex w-10/12 flex-col items-center gap-10">
-  <h1 class="page-h1">Edit Campground</h1>
+<section class="mx-auto flex h-full w-10/12 flex-col">
+  <h1 class="page-h1 text-center">Edit Campground</h1>
   <div
-    class="w-full max-w-xl rounded-lg border border-gray-200 bg-white py-3 px-5 shadow-md dark:border-gray-600 dark:bg-gray-800 md:mb-0"
+    class="m-auto w-full max-w-xl rounded-lg border border-gray-200 bg-white py-3 px-5 shadow-md dark:border-gray-600 dark:bg-gray-800"
   >
     <form action="/campgrounds/<%= campground._id %>?_method=PUT" method="POST">
       <div class="group relative z-0 mb-6 mt-1 w-full">
@@ -95,4 +95,4 @@
       </div>
     </form>
   </div>
-</div>
+</section>
