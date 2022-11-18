@@ -3,8 +3,12 @@
 @tailwind utilities;
 
 @layer components {
+  .main__container::-webkit-scrollbar {
+    @apply hidden;
+  }
+
   .page-h1 {
-    @apply mt-0 mb-2 text-6xl font-normal leading-normal text-pink-800;
+    @apply mt-2 mb-5 text-3xl font-normal text-pink-800 md:text-5xl;
   }
 
   .btn-back {
