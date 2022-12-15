@@ -4,13 +4,9 @@ const burgerTrigger = document.getElementById('burger__btn');
 const navLink = document.querySelectorAll('[aria-current]');
 
 const url = document.URL.slice(21);
-console.log(url);
-console.log(navLink);
+
 for (let i = 0; i < navLink.length; i++) {
-  console.log(navLink[i]);
   if (navLink[i].getAttribute('href') === url) {
-    console.log(navLink[i].getAttribute('href') === url);
-    console.log(navLink[i]);
     navLink[i].classList.add('current-page');
   }
 }
