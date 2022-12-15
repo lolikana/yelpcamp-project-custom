@@ -21,7 +21,7 @@ db.once('open', () => {
 });
 app.engine('ejs', ejs_mate_1.default);
 app.set('view engine', 'ejs');
-app.set('views', path_1.default.join(__dirname, './views'));
+app.set('views', path_1.default.join(__dirname, '../views'));
 app.use(express_1.default.static(path_1.default.join(__dirname, '../public')));
 app.use(express_1.default.static(path_1.default.join(__dirname, '../dist')));
 app.use(express_1.default.urlencoded({ extended: true }));
@@ -34,7 +34,40 @@ app.get('/campgrounds', (async (_req, res) => {
     res.render('campgrounds/index', { campgrounds });
 }));
 app.get('/campgrounds/new', (_req, res) => {
-    res.render('campgrounds/new');
+  res.render('campgrounds/new');
+});
+app.post('/campgrounds', async (req, res) => {
+  const campground = new campgrounds_1.CampgroundModel(req.body.campground);
+  await campground.save();
+  console.log(req.body);
+  res.redirect(`/campgrounds/${campground._id}`);
+});
+app.get('/campgrounds/:id', async (req, res) => {
+  const { id } = req.params;
+  const campground = await campgrounds_1.CampgroundModel.findById(id);
+  res.render(`campgrounds/detail`, { id, campground });
+});
+app.get('/campgrounds/:id/edit', async (req, res) => {
+  const campground = await campgrounds_1.CampgroundModel.findById(
+    req.params.id
+  );
+  res.render('campgrounds/edit', { campground });
+});
+app.put('/campgrounds/:id', async (req, res) => {
+  const { id } = req.params;
+  const campground = await campgrounds_1.CampgroundModel.findByIdAndUpdate(
+    id,
+    {
+      ...req.body.campground
+    },
+    { new: true }
+  );
+  res.redirect(`/campgrounds/${campground?._id}`);
+});
+app.delete('/campgrounds/:id', async (req, res) => {
+  const { id } = req.params;
+  await campgrounds_1.CampgroundModel.findByIdAndDelete(id);
+  res.redirect('/campgrounds');
 });
 app.post('/campgrounds', (async (req, res) => {
     const campground = new campgrounds_1.CampgroundModel(req.body.campground);

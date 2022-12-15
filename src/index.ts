@@ -23,7 +23,7 @@ db.once('open', () => {
 
 app.engine('ejs', engine);
 app.set('view engine', 'ejs');
-app.set('views', path.join(__dirname, './views'));
+app.set('views', path.join(__dirname, '../views'));
 
 app.use(express.static(path.join(__dirname, '../public')));
 app.use(express.static(path.join(__dirname, '../dist')));
@@ -48,6 +48,7 @@ app.get('/campgrounds/new', (_req, res) => {
 app.post('/campgrounds', (async (req, res) => {
   const campground = new CampgroundModel(req.body.campground);
   await campground.save();
+  console.log(req.body);
   res.redirect(`/campgrounds/${campground._id}`);
 }) as RequestHandler);
 
