@@ -557,6 +557,40 @@ video {
   --tw-backdrop-sepia:  ;
 }
 
+.container {
+  width: 100%;
+}
+
+@media (min-width: 640px) {
+  .container {
+    max-width: 640px;
+  }
+}
+
+@media (min-width: 768px) {
+  .container {
+    max-width: 768px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .container {
+    max-width: 1024px;
+  }
+}
+
+@media (min-width: 1280px) {
+  .container {
+    max-width: 1280px;
+  }
+}
+
+@media (min-width: 1536px) {
+  .container {
+    max-width: 1536px;
+  }
+}
+
 .main__container::-webkit-scrollbar {
   display: none;
 }
@@ -690,6 +724,13 @@ video {
   position: relative;
 }
 
+.inset-0 {
+  top: 0px;
+  right: 0px;
+  bottom: 0px;
+  left: 0px;
+}
+
 .inset-y-0 {
   top: 0px;
   bottom: 0px;
@@ -711,6 +752,10 @@ video {
   z-index: -10;
 }
 
+.z-10 {
+  z-index: 10;
+}
+
 .m-auto {
   margin: auto;
 }
@@ -728,6 +773,11 @@ video {
 .mx-4 {
   margin-left: 1rem;
   margin-right: 1rem;
+}
+
+.my-44 {
+  margin-top: 11rem;
+  margin-bottom: 11rem;
 }
 
 .mt-3 {
@@ -772,6 +822,10 @@ video {
 
 .mt-4 {
   margin-top: 1rem;
+}
+
+.mt-10 {
+  margin-top: 2.5rem;
 }
 
 .box-border {
@@ -866,6 +920,10 @@ video {
   width: 1.5rem;
 }
 
+.w-3\/4 {
+  width: 75%;
+}
+
 .min-w-\[375px\] {
   min-width: 375px;
 }
@@ -895,6 +953,39 @@ video {
 
 .transform {
   transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
+}
+
+@-webkit-keyframes bounce {
+  0%, 100% {
+    transform: translateY(-25%);
+    -webkit-animation-timing-function: cubic-bezier(0.8,0,1,1);
+            animation-timing-function: cubic-bezier(0.8,0,1,1);
+  }
+
+  50% {
+    transform: none;
+    -webkit-animation-timing-function: cubic-bezier(0,0,0.2,1);
+            animation-timing-function: cubic-bezier(0,0,0.2,1);
+  }
+}
+
+@keyframes bounce {
+  0%, 100% {
+    transform: translateY(-25%);
+    -webkit-animation-timing-function: cubic-bezier(0.8,0,1,1);
+            animation-timing-function: cubic-bezier(0.8,0,1,1);
+  }
+
+  50% {
+    transform: none;
+    -webkit-animation-timing-function: cubic-bezier(0,0,0.2,1);
+            animation-timing-function: cubic-bezier(0,0,0.2,1);
+  }
+}
+
+.animate-bounce {
+  -webkit-animation: bounce 1s infinite;
+          animation: bounce 1s infinite;
 }
 
 .cursor-pointer {
@@ -945,6 +1036,14 @@ video {
 
 .gap-2 {
   gap: 0.5rem;
+}
+
+.gap-6 {
+  gap: 1.5rem;
+}
+
+.overflow-hidden {
+  overflow: hidden;
 }
 
 .overflow-x-hidden {
@@ -1032,6 +1131,16 @@ video {
   background-color: rgb(249 250 251 / var(--tw-bg-opacity));
 }
 
+.bg-indigo-900 {
+  --tw-bg-opacity: 1;
+  background-color: rgb(49 46 129 / var(--tw-bg-opacity));
+}
+
+.bg-black {
+  --tw-bg-opacity: 1;
+  background-color: rgb(0 0 0 / var(--tw-bg-opacity));
+}
+
 .fill-gray-50 {
   fill: #f9fafb;
 }
@@ -1093,6 +1202,11 @@ video {
   padding-right: 1.5rem;
 }
 
+.py-32 {
+  padding-top: 8rem;
+  padding-bottom: 8rem;
+}
+
 .pl-7 {
   padding-left: 1.75rem;
 }
@@ -1111,6 +1225,10 @@ video {
 
 .align-baseline {
   vertical-align: baseline;
+}
+
+.font-mono {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
 }
 
 .text-3xl {
@@ -1138,6 +1256,16 @@ video {
   line-height: 1.75rem;
 }
 
+.text-5xl {
+  font-size: 3rem;
+  line-height: 1;
+}
+
+.text-8xl {
+  font-size: 6rem;
+  line-height: 1;
+}
+
 .font-bold {
   font-weight: 700;
 }
@@ -1152,6 +1280,14 @@ video {
 
 .font-semibold {
   font-weight: 600;
+}
+
+.font-extrabold {
+  font-weight: 800;
+}
+
+.leading-tight {
+  line-height: 1.25;
 }
 
 .tracking-tight {
@@ -1200,6 +1336,10 @@ video {
 
 .underline {
   text-decoration-line: underline;
+}
+
+.opacity-25 {
+  opacity: 0.25;
 }
 
 .shadow-md {
@@ -1550,6 +1690,11 @@ select:-webkit-autofill:focus {
     padding: 0.25rem;
   }
 
+  .md\:px-12 {
+    padding-left: 3rem;
+    padding-right: 3rem;
+  }
+
   .md\:text-sm {
     font-size: 0.875rem;
     line-height: 1.25rem;
@@ -1599,5 +1744,12 @@ select:-webkit-autofill:focus {
 @media (min-width: 1024px) {
   .lg\:gap-6 {
     gap: 1.5rem;
+  }
+}
+
+@media (min-width: 1280px) {
+  .xl\:py-40 {
+    padding-top: 10rem;
+    padding-bottom: 10rem;
   }
 }

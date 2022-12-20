@@ -1,0 +1,25 @@
+<% layout("./layout/boilerplate.ejs") %>
+<div class="relative h-full w-full overflow-hidden bg-indigo-900">
+  <img
+    src="https://www.theglobeandmail.com/resizer/zCV8DoGq1MMXpEPhxyf8F82EWvU=/1200x778/filters:quality(80)/arc-anglerfish-tgam-prod-tgam.s3.amazonaws.com/public/PPE4RIHB5BFPJOCZOJICRDZIZA"
+    class="absolute h-full w-full object-cover"
+  />
+
+  <div class="absolute inset-0 bg-black opacity-25"></div>
+
+  <div
+    class="container relative z-10 mx-auto flex h-full items-center justify-center"
+  >
+    <div
+      class="relative z-10 mx-auto flex flex-col items-center justify-center gap-6 font-mono"
+    >
+      <h1 class="text-center text-5xl font-extrabold leading-tight text-white">
+        <%= err.message %>
+      </h1>
+      <p class="w-3/4 text-sm"><%= err.stack %></p>
+      <p class="mt-10 animate-bounce text-8xl font-extrabold text-white">
+        <%= err.status %>
+      </p>
+    </div>
+  </div>
+</div>

@@ -59,7 +59,6 @@ app.post(
   '/campgrounds',
   catchAsync(async (req, res, next) => {
     try {
-      console.log(req.body.campground);
       const campground = new CampgroundModel(req.body.campground);
       await campground.save();
       res.redirect(`/campgrounds/${campground._id}`);
@@ -122,7 +121,7 @@ app.all('*', (_req, _res, next) => {
 app.use(
   (err: ExpressError, _req: Request, res: Response, _next: NextFunction) => {
     const { status = 500, message = 'Oops, something went wrong' } = err;
-    res.status(status).send(message);
+    res.status(status).render('error', { message, err });
   }
 );
 

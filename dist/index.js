@@ -40,7 +40,6 @@ app.get('/campgrounds/new', (_req, res) => {
 });
 app.post('/campgrounds', (0, catchAsync_1.catchAsync)(async (req, res, next) => {
     try {
-        console.log(req.body.campground);
         const campground = new campgrounds_1.CampgroundModel(req.body.campground);
         await campground.save();
         res.redirect(`/campgrounds/${campground._id}`);
@@ -80,7 +79,7 @@ app.all('*', (_req, _res, next) => {
 });
 app.use((err, _req, res, _next) => {
     const { status = 500, message = 'Oops, something went wrong' } = err;
-    res.status(status).send(message);
+    res.status(status).render('error', { message, err });
 });
 app.listen(3000, () => {
     console.log('Serving on port 3000');
