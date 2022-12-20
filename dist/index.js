@@ -38,15 +38,10 @@ app.get('/campgrounds', (0, catchAsync_1.catchAsync)(async (_req, res) => {
 app.get('/campgrounds/new', (_req, res) => {
     res.render('campgrounds/new');
 });
-app.post('/campgrounds', (0, catchAsync_1.catchAsync)(async (req, res, next) => {
-    try {
-        const campground = new campgrounds_1.CampgroundModel(req.body.campground);
-        await campground.save();
-        res.redirect(`/campgrounds/${campground._id}`);
-    }
-    catch (err) {
-        return next(new ExpressError_1.ExpressError('Invalid campground data', 400));
-    }
+app.post('/campgrounds', (0, catchAsync_1.catchAsync)(async (req, res, _next) => {
+    const campground = new campgrounds_1.CampgroundModel(req.body.campground);
+    await campground.save();
+    res.redirect(`/campgrounds/${campground._id}`);
 }));
 app.get('/campgrounds/:id', (0, catchAsync_1.catchAsync)(async (req, res, next) => {
     try {

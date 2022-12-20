@@ -14,6 +14,7 @@ import path from 'path';
 import { CampgroundModel } from './models/campgrounds';
 import { catchAsync } from './utils/catchAsync';
 import { ExpressError } from './utils/ExpressError';
+import Joi from 'joi';
 
 const app = express();
 
@@ -57,14 +58,24 @@ app.get('/campgrounds/new', (_req, res) => {
 
 app.post(
   '/campgrounds',
-  catchAsync(async (req, res, next) => {
-    try {
-      const campground = new CampgroundModel(req.body.campground);
-      await campground.save();
-      res.redirect(`/campgrounds/${campground._id}`);
-    } catch (err) {
-      return next(new ExpressError('Invalid campground data', 400));
+  catchAsync(async (req, res, _next) => {
+    const campgroundValidationSchema = Joi.object({
+      campground: Joi.object({
+        title: Joi.string().required(),
+        location: Joi.string().required(),
+        description: Joi.string().required(),
+        price: Joi.number().min(0).required(),
+        image: Joi.string().required()
+      }).required()
+    });
+    const { error } = campgroundValidationSchema.validate(req.body);
+    if (error !== undefined) {
+      const msg = error.details.map((el: any) => el.message).join(',');
+      throw new ExpressError(msg, 400);
     }
+    const campground = new CampgroundModel(req.body.campground);
+    await campground.save();
+    res.redirect(`/campgrounds/${campground._id}`);
   }) as RequestHandler
 );
 
