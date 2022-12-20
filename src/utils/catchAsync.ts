@@ -1,6 +1,6 @@
 import { NextFunction, Request, Response } from 'express';
 
-export const wrapAsync = (
+export const catchAsync = (
   func: (req: Request, res: Response, next: NextFunction) => Promise<any>
 ): any => {
   return function (req: Request, res: Response, next: NextFunction) {

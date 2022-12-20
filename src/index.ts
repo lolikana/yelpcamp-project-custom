@@ -12,7 +12,7 @@ import mongoose from 'mongoose';
 import path from 'path';
 
 import { CampgroundModel } from './models/campgrounds';
-import { wrapAsync } from './utils/catchAsync';
+import { catchAsync } from './utils/catchAsync';
 import { ExpressError } from './utils/ExpressError';
 
 const app = express();
@@ -61,7 +61,7 @@ app.post('/campgrounds', (async (req, res) => {
 
 app.get(
   '/campgrounds/:id',
-  wrapAsync(async (req, res, next) => {
+  catchAsync(async (req, res, next) => {
     try {
       const { id } = req.params;
       const campground = await CampgroundModel.findById(id);
