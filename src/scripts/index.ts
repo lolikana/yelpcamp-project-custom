@@ -37,3 +37,78 @@ window.addEventListener('resize', (_e: UIEvent) => {
   }
 });
 // END Burder menu
+
+// START Validation form
+const validationForms = document.querySelectorAll('.validated-form');
+
+const inputs = document.getElementsByTagName('input');
+const textAreaInput = document.getElementsByClassName('textarea-input');
+
+Array.from(inputs).forEach((input: HTMLInputElement) => {
+  const inputError = document.querySelector(`[for="${input.id}"] + span.error`);
+  input?.addEventListener('input', (_event: any) => {
+    if (input.validity.valid && inputError !== null) {
+      inputError.textContent = '';
+      input.classList.add('error');
+    }
+    if (!input.validity.valid && inputError !== null) {
+      showError(input, inputError);
+    }
+  });
+});
+
+Array.from(textAreaInput).forEach((textarea: any) => {
+  const inputError = document.querySelector(
+    `[for="${textarea.id}"] + span.error`
+  );
+  textarea?.addEventListener('input', (_event: any) => {
+    // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
+    if (textarea.validity.valid && inputError !== null) {
+      inputError.textContent = '';
+      textarea.classList.add('error');
+    }
+    // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
+    if (!textarea.validity.valid && inputError !== null) {
+      showError(textarea, inputError);
+    }
+  });
+});
+
+Array.from(validationForms).forEach((form: any) => {
+  form.addEventListener('submit', (event: any) => {
+    // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
+    if (!form.checkValidity()) {
+      Array.from(inputs).forEach((input: HTMLInputElement) => {
+        const inputError = document.querySelector(
+          `[for="${input.id}"] + span.error`
+        );
+        if (inputError !== null) {
+          showError(input, inputError);
+        }
+      });
+      Array.from(textAreaInput).forEach((textarea: any) => {
+        const inputError = document.querySelector(
+          `[for="${textarea.id}"] + span.error`
+        );
+        if (inputError !== null) {
+          showError(textarea, inputError);
+        }
+      });
+      event.preventDefault();
+    }
+  });
+});
+
+const showError = (
+  input: HTMLInputElement | HTMLTextAreaElement,
+  inputError: Element
+): void => {
+  if (input.validity.valueMissing) {
+    inputError.textContent = `You need to enter ${input.id}`;
+  }
+  if (input.validity.typeMismatch) {
+    inputError.textContent = 'Entered value needs to be correct';
+  }
+  inputError.classList.add('active');
+};
+// END Validation form
