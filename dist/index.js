@@ -44,7 +44,7 @@ app.post('/campgrounds', (async (req, res) => {
     console.log(req.body);
     res.redirect(`/campgrounds/${campground._id}`);
 }));
-app.get('/campgrounds/:id', (0, catchAsync_1.wrapAsync)(async (req, res, next) => {
+app.get('/campgrounds/:id', (0, catchAsync_1.catchAsync)(async (req, res, next) => {
     try {
         const { id } = req.params;
         const campground = await campgrounds_1.CampgroundModel.findById(id);
