@@ -1,12 +1,19 @@
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-expect-error
 import engine from 'ejs-mate';
-import express, { RequestHandler } from 'express';
+import express, {
+  NextFunction,
+  Request,
+  RequestHandler,
+  Response
+} from 'express';
 import methodOverride from 'method-override';
 import mongoose from 'mongoose';
 import path from 'path';
 
 import { CampgroundModel } from './models/campgrounds';
+import { wrapAsync } from './utils/catchAsync';
+import { ExpressError } from './utils/ExpressError';
 
 const app = express();
 
@@ -52,11 +59,18 @@ app.post('/campgrounds', (async (req, res) => {
   res.redirect(`/campgrounds/${campground._id}`);
 }) as RequestHandler);
 
-app.get('/campgrounds/:id', (async (req, res) => {
-  const { id } = req.params;
-  const campground = await CampgroundModel.findById(id);
-  res.render(`campgrounds/detail`, { id, campground });
-}) as RequestHandler);
+app.get(
+  '/campgrounds/:id',
+  wrapAsync(async (req, res, next) => {
+    try {
+      const { id } = req.params;
+      const campground = await CampgroundModel.findById(id);
+      res.render(`campgrounds/detail`, { id, campground });
+    } catch (err: unknown) {
+      next(new ExpressError('Campground not found', 404));
+    }
+  }) as RequestHandler
+);
 
 app.get('/campgrounds/:id/edit', (async (req, res) => {
   const campground = await CampgroundModel.findById(req.params.id);
@@ -81,6 +95,13 @@ app.delete('/campgrounds/:id', (async (req, res) => {
 
   res.redirect('/campgrounds');
 }) as RequestHandler);
+
+app.use(
+  (err: ExpressError, _req: Request, res: Response, _next: NextFunction) => {
+    const { status = 500, message = 'Oops, something went wrong' } = err;
+    res.status(status).send(message);
+  }
+);
 
 app.listen(3000, () => {
   console.log('Serving on port 3000');
