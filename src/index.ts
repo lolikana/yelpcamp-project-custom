@@ -57,11 +57,15 @@ app.get('/campgrounds/new', (_req, res) => {
 
 app.post(
   '/campgrounds',
-  catchAsync(async (req, res) => {
-    const campground = new CampgroundModel(req.body.campground);
-    await campground.save();
-    console.log(req.body);
-    res.redirect(`/campgrounds/${campground._id}`);
+  catchAsync(async (req, res, next) => {
+    try {
+      console.log(req.body.campground);
+      const campground = new CampgroundModel(req.body.campground);
+      await campground.save();
+      res.redirect(`/campgrounds/${campground._id}`);
+    } catch (err) {
+      return next(new ExpressError('Invalid campground data', 400));
+    }
   }) as RequestHandler
 );
 
@@ -110,6 +114,10 @@ app.delete(
     res.redirect('/campgrounds');
   }) as RequestHandler
 );
+
+app.all('*', (_req, _res, next) => {
+  next(new ExpressError('Page Not Found!!', 404));
+});
 
 app.use(
   (err: ExpressError, _req: Request, res: Response, _next: NextFunction) => {

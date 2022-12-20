@@ -38,11 +38,16 @@ app.get('/campgrounds', (0, catchAsync_1.catchAsync)(async (_req, res) => {
 app.get('/campgrounds/new', (_req, res) => {
     res.render('campgrounds/new');
 });
-app.post('/campgrounds', (0, catchAsync_1.catchAsync)(async (req, res) => {
-    const campground = new campgrounds_1.CampgroundModel(req.body.campground);
-    await campground.save();
-    console.log(req.body);
-    res.redirect(`/campgrounds/${campground._id}`);
+app.post('/campgrounds', (0, catchAsync_1.catchAsync)(async (req, res, next) => {
+    try {
+        console.log(req.body.campground);
+        const campground = new campgrounds_1.CampgroundModel(req.body.campground);
+        await campground.save();
+        res.redirect(`/campgrounds/${campground._id}`);
+    }
+    catch (err) {
+        return next(new ExpressError_1.ExpressError('Invalid campground data', 400));
+    }
 }));
 app.get('/campgrounds/:id', (0, catchAsync_1.catchAsync)(async (req, res, next) => {
     try {
@@ -70,6 +75,9 @@ app.delete('/campgrounds/:id', (0, catchAsync_1.catchAsync)(async (req, res) => 
     await campgrounds_1.CampgroundModel.findByIdAndDelete(id);
     res.redirect('/campgrounds');
 }));
+app.all('*', (_req, _res, next) => {
+    next(new ExpressError_1.ExpressError('Page Not Found!!', 404));
+});
 app.use((err, _req, res, _next) => {
     const { status = 500, message = 'Oops, something went wrong' } = err;
     res.status(status).send(message);
