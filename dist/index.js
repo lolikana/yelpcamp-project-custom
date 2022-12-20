@@ -31,14 +31,14 @@ app.use((0, method_override_1.default)('_method'));
 app.get('/', (_req, res) => {
     res.render('index');
 });
-app.get('/campgrounds', (async (_req, res) => {
+app.get('/campgrounds', (0, catchAsync_1.catchAsync)(async (_req, res) => {
     const campgrounds = await campgrounds_1.CampgroundModel.find({});
     res.render('campgrounds/index', { campgrounds });
 }));
 app.get('/campgrounds/new', (_req, res) => {
     res.render('campgrounds/new');
 });
-app.post('/campgrounds', (async (req, res) => {
+app.post('/campgrounds', (0, catchAsync_1.catchAsync)(async (req, res) => {
     const campground = new campgrounds_1.CampgroundModel(req.body.campground);
     await campground.save();
     console.log(req.body);
@@ -54,18 +54,18 @@ app.get('/campgrounds/:id', (0, catchAsync_1.catchAsync)(async (req, res, next) 
         next(new ExpressError_1.ExpressError('Campground not found', 404));
     }
 }));
-app.get('/campgrounds/:id/edit', (async (req, res) => {
+app.get('/campgrounds/:id/edit', (0, catchAsync_1.catchAsync)(async (req, res) => {
     const campground = await campgrounds_1.CampgroundModel.findById(req.params.id);
     res.render('campgrounds/edit', { campground });
 }));
-app.put('/campgrounds/:id', (async (req, res) => {
+app.put('/campgrounds/:id', (0, catchAsync_1.catchAsync)(async (req, res) => {
     const { id } = req.params;
     const campground = await campgrounds_1.CampgroundModel.findByIdAndUpdate(id, {
         ...req.body.campground
     }, { new: true });
     res.redirect(`/campgrounds/${campground?._id}`);
 }));
-app.delete('/campgrounds/:id', (async (req, res) => {
+app.delete('/campgrounds/:id', (0, catchAsync_1.catchAsync)(async (req, res) => {
     const { id } = req.params;
     await campgrounds_1.CampgroundModel.findByIdAndDelete(id);
     res.redirect('/campgrounds');
