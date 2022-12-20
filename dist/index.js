@@ -9,6 +9,8 @@ const method_override_1 = __importDefault(require("method-override"));
 const mongoose_1 = __importDefault(require("mongoose"));
 const path_1 = __importDefault(require("path"));
 const campgrounds_1 = require("./models/campgrounds");
+const catchAsync_1 = require("./utils/catchAsync");
+const ExpressError_1 = require("./utils/ExpressError");
 const app = (0, express_1.default)();
 mongoose_1.default
     .connect('mongodb://127.0.0.1:27017/yelp-camp')
@@ -42,10 +44,15 @@ app.post('/campgrounds', (async (req, res) => {
     console.log(req.body);
     res.redirect(`/campgrounds/${campground._id}`);
 }));
-app.get('/campgrounds/:id', (async (req, res) => {
-    const { id } = req.params;
-    const campground = await campgrounds_1.CampgroundModel.findById(id);
-    res.render(`campgrounds/detail`, { id, campground });
+app.get('/campgrounds/:id', (0, catchAsync_1.wrapAsync)(async (req, res, next) => {
+    try {
+        const { id } = req.params;
+        const campground = await campgrounds_1.CampgroundModel.findById(id);
+        res.render(`campgrounds/detail`, { id, campground });
+    }
+    catch (err) {
+        next(new ExpressError_1.ExpressError('Campground not found', 404));
+    }
 }));
 app.get('/campgrounds/:id/edit', (async (req, res) => {
     const campground = await campgrounds_1.CampgroundModel.findById(req.params.id);
@@ -63,6 +70,10 @@ app.delete('/campgrounds/:id', (async (req, res) => {
     await campgrounds_1.CampgroundModel.findByIdAndDelete(id);
     res.redirect('/campgrounds');
 }));
+app.use((err, _req, res, _next) => {
+    const { status = 500, message = 'Oops, something went wrong' } = err;
+    res.status(status).send(message);
+});
 app.listen(3000, () => {
     console.log('Serving on port 3000');
 });
