@@ -26,11 +26,6 @@
   .current-page {
     @apply bg-gray-100 text-black hover:bg-gray-200 !important;
   }
-
-  .was-validated input,
-  .was-validated textarea {
-    @apply relative border-pink-600;
-  }
 }
 
 input:-webkit-autofill,
