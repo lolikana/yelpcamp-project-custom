@@ -43,21 +43,27 @@ app.get('/', (_req, res) => {
   res.render('index');
 });
 
-app.get('/campgrounds', (async (_req, res) => {
-  const campgrounds = await CampgroundModel.find({});
-  res.render('campgrounds/index', { campgrounds });
-}) as RequestHandler);
+app.get(
+  '/campgrounds',
+  catchAsync(async (_req, res) => {
+    const campgrounds = await CampgroundModel.find({});
+    res.render('campgrounds/index', { campgrounds });
+  }) as RequestHandler
+);
 
 app.get('/campgrounds/new', (_req, res) => {
   res.render('campgrounds/new');
 });
 
-app.post('/campgrounds', (async (req, res) => {
-  const campground = new CampgroundModel(req.body.campground);
-  await campground.save();
-  console.log(req.body);
-  res.redirect(`/campgrounds/${campground._id}`);
-}) as RequestHandler);
+app.post(
+  '/campgrounds',
+  catchAsync(async (req, res) => {
+    const campground = new CampgroundModel(req.body.campground);
+    await campground.save();
+    console.log(req.body);
+    res.redirect(`/campgrounds/${campground._id}`);
+  }) as RequestHandler
+);
 
 app.get(
   '/campgrounds/:id',
@@ -72,29 +78,38 @@ app.get(
   }) as RequestHandler
 );
 
-app.get('/campgrounds/:id/edit', (async (req, res) => {
-  const campground = await CampgroundModel.findById(req.params.id);
-  res.render('campgrounds/edit', { campground });
-}) as RequestHandler);
+app.get(
+  '/campgrounds/:id/edit',
+  catchAsync(async (req, res) => {
+    const campground = await CampgroundModel.findById(req.params.id);
+    res.render('campgrounds/edit', { campground });
+  }) as RequestHandler
+);
 
-app.put('/campgrounds/:id', (async (req, res) => {
-  const { id } = req.params;
-  const campground = await CampgroundModel.findByIdAndUpdate(
-    id,
-    {
-      ...req.body.campground
-    },
-    { new: true }
-  );
-  res.redirect(`/campgrounds/${campground?._id}`);
-}) as RequestHandler);
+app.put(
+  '/campgrounds/:id',
+  catchAsync(async (req, res) => {
+    const { id } = req.params;
+    const campground = await CampgroundModel.findByIdAndUpdate(
+      id,
+      {
+        ...req.body.campground
+      },
+      { new: true }
+    );
+    res.redirect(`/campgrounds/${campground?._id}`);
+  }) as RequestHandler
+);
 
-app.delete('/campgrounds/:id', (async (req, res) => {
-  const { id } = req.params;
-  await CampgroundModel.findByIdAndDelete(id);
+app.delete(
+  '/campgrounds/:id',
+  catchAsync(async (req, res) => {
+    const { id } = req.params;
+    await CampgroundModel.findByIdAndDelete(id);
 
-  res.redirect('/campgrounds');
-}) as RequestHandler);
+    res.redirect('/campgrounds');
+  }) as RequestHandler
+);
 
 app.use(
   (err: ExpressError, _req: Request, res: Response, _next: NextFunction) => {
