@@ -15,49 +15,53 @@
           class="h-[250px] w-full rounded-t-lg object-cover"
         />
       </a>
-      <div class="p-5 text-gray-900 dark:text-white">
-        <h5
-          class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white"
-        >
-          <%= campground.title %>
-        </h5>
+      <div
+        class="flex h-1/2 flex-col justify-between p-5 text-gray-900 dark:text-white"
+      >
         <div>
-          <a
-            href=" http://maps.google.com/?q=<%= campground.location %>"
-            target="_blank"
-            class="flex w-fit flex-row items-center gap-1 transition duration-500 ease-in-out hover:text-green-600 hover:duration-500"
+          <h5
+            class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white"
           >
-            <svg
-              class="h-6 w-6"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-              xmlns="http://www.w3.org/2000/svg"
+            <%= campground.title %>
+          </h5>
+          <div>
+            <a
+              href=" http://maps.google.com/?q=<%= campground.location %>"
+              target="_blank"
+              class="flex w-fit flex-row items-center gap-1 transition duration-500 ease-in-out hover:text-green-600 hover:duration-500"
             >
-              <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="2"
-                d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"
-              ></path>
-              <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="2"
-                d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"
-              ></path>
-            </svg>
-            <h6 class="text-lg font-bold"><%= campground.location %></h6>
-          </a>
+              <svg
+                class="h-6 w-6"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"
+                ></path>
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"
+                ></path>
+              </svg>
+              <h6 class="text-lg font-bold"><%= campground.location %></h6>
+            </a>
+          </div>
+          <p
+            class="mb-3 font-normal text-gray-700 line-clamp-3 dark:text-gray-400"
+          >
+            <%= campground.description %>
+          </p>
         </div>
-        <p
-          class="mb-3 font-normal text-gray-700 line-clamp-3 dark:text-gray-400"
-        >
-          <%= campground.description %>
-        </p>
         <a
           href="/campgrounds/<%= campground._id %>"
-          class="inline-flex items-center rounded-lg bg-blue-700 py-2 px-3 text-center text-sm font-medium text-white hover:bg-blue-800 focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+          class="inline-flex w-fit items-center rounded-lg bg-blue-700 py-2 px-3 text-center text-sm font-medium text-white hover:bg-blue-800 focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
           >View more
           <svg
             aria-hidden="true"
