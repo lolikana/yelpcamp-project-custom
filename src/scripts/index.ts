@@ -112,3 +112,15 @@ const showError = (
   inputError.classList.add('active');
 };
 // END Validation form
+
+// START Character count of textarea
+const reviewTextarea = document.querySelector('[aria-limit-textarea]');
+const limitCharacter = reviewTextarea?.getAttribute('maxlength');
+const countCurr = document.getElementById('count-current')!;
+const countMax = document.getElementById('count-maximum')!;
+countMax.textContent = limitCharacter!.toString();
+
+reviewTextarea?.addEventListener('input', (e: any) => {
+  countCurr.textContent = e.target.value.length;
+});
+// END Character count of textarea

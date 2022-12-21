@@ -83,4 +83,12 @@ const showError = (input, inputError) => {
     }
     inputError.classList.add('active');
 };
+const reviewTextarea = document.querySelector('[aria-limit-textarea]');
+const limitCharacter = reviewTextarea?.getAttribute('maxlength');
+const countCurr = document.getElementById('count-current');
+const countMax = document.getElementById('count-maximum');
+countMax.textContent = limitCharacter.toString();
+reviewTextarea?.addEventListener('input', (e) => {
+    countCurr.textContent = e.target.value.length;
+});
 //# sourceMappingURL=index.js.map
