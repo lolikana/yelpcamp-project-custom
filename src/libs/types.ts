@@ -4,6 +4,12 @@ export interface ICampground {
   price: number;
   description: string;
   location: string;
+  reviews: Array<{ body: string; rating: number }>;
+}
+
+export interface IReview {
+  body: string;
+  rating: number;
 }
 
 export interface TCity {

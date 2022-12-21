@@ -8,6 +8,7 @@ const express_1 = __importDefault(require("express"));
 const method_override_1 = __importDefault(require("method-override"));
 const mongoose_1 = __importDefault(require("mongoose"));
 const path_1 = __importDefault(require("path"));
+const validations_1 = require("./libs/validations");
 const campgrounds_1 = require("./models/campgrounds");
 const catchAsync_1 = require("./utils/catchAsync");
 const ExpressError_1 = require("./utils/ExpressError");
@@ -38,7 +39,7 @@ app.get('/campgrounds', (0, catchAsync_1.catchAsync)(async (_req, res) => {
 app.get('/campgrounds/new', (_req, res) => {
     res.render('campgrounds/new');
 });
-app.post('/campgrounds', (0, catchAsync_1.catchAsync)(async (req, res, _next) => {
+app.post('/campgrounds', validations_1.validateCampground, (0, catchAsync_1.catchAsync)(async (req, res, _next) => {
     const campground = new campgrounds_1.CampgroundModel(req.body.campground);
     await campground.save();
     res.redirect(`/campgrounds/${campground._id}`);
@@ -57,7 +58,7 @@ app.get('/campgrounds/:id/edit', (0, catchAsync_1.catchAsync)(async (req, res) =
     const campground = await campgrounds_1.CampgroundModel.findById(req.params.id);
     res.render('campgrounds/edit', { campground });
 }));
-app.put('/campgrounds/:id', (0, catchAsync_1.catchAsync)(async (req, res) => {
+app.put('/campgrounds/:id', validations_1.validateCampground, (0, catchAsync_1.catchAsync)(async (req, res) => {
     const { id } = req.params;
     const campground = await campgrounds_1.CampgroundModel.findByIdAndUpdate(id, {
         ...req.body.campground
