@@ -13,7 +13,13 @@ const CampgroundSchema = new mongoose_1.Schema({
         type: String,
         default: 'no description'
     },
-    location: String
+    location: String,
+    reviews: [
+        {
+            type: mongoose_1.Types.ObjectId,
+            ref: 'Review'
+        }
+    ]
 });
 exports.CampgroundModel = (0, mongoose_1.model)('Campground', CampgroundSchema);
 //# sourceMappingURL=campgrounds.js.map

@@ -1,4 +1,4 @@
-import { model, Schema } from 'mongoose';
+import { model, Schema, Types } from 'mongoose';
 
 import { ICampground } from '../libs/types';
 
@@ -13,7 +13,13 @@ const CampgroundSchema = new Schema<ICampground>({
     type: String,
     default: 'no description'
   },
-  location: String
+  location: String,
+  reviews: [
+    {
+      type: Types.ObjectId,
+      ref: 'Review'
+    }
+  ]
 });
 
 export const CampgroundModel = model('Campground', CampgroundSchema);
