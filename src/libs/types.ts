@@ -10,7 +10,6 @@ export interface ICampground {
 export interface IReview {
   body: string;
   rating: number;
-  campground: ICampground;
 }
 
 export interface TCity {

@@ -71,7 +71,7 @@ app.delete('/campgrounds/:id', (0, catchAsync_1.catchAsync)(async (req, res) => 
     await campgrounds_1.CampgroundModel.findByIdAndDelete(id);
     res.redirect('/campgrounds');
 }));
-app.post('/campgrounds/:id/reviews', (0, catchAsync_1.catchAsync)(async (req, res) => {
+app.post('/campgrounds/:id/reviews', validations_1.validateReview, (0, catchAsync_1.catchAsync)(async (req, res) => {
     const { id } = req.params;
     const campground = await campgrounds_1.CampgroundModel.findById(id);
     const review = new review_1.ReviewModel(req.body.review);

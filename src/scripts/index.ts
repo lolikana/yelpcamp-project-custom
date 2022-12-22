@@ -74,6 +74,23 @@ Array.from(textAreaInput).forEach((textarea: any) => {
   });
 });
 
+Array.from(textAreaInput).forEach((textarea: any) => {
+  const inputError = document.querySelector(
+    `[name="review[${textarea.id}]"] + span.error`
+  );
+  textarea?.addEventListener('input', (_event: any) => {
+    // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
+    if (textarea.validity.valid && inputError !== null) {
+      inputError.textContent = '';
+      textarea.classList.add('error');
+    }
+    // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
+    if (!textarea.validity.valid && inputError !== null) {
+      showError(textarea, inputError);
+    }
+  });
+});
+
 Array.from(validationForms).forEach((form: any) => {
   form.addEventListener('submit', (event: any) => {
     // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
@@ -89,6 +106,14 @@ Array.from(validationForms).forEach((form: any) => {
       Array.from(textAreaInput).forEach((textarea: any) => {
         const inputError = document.querySelector(
           `[for="${textarea.id}"] + span.error`
+        );
+        if (inputError !== null) {
+          showError(textarea, inputError);
+        }
+      });
+      Array.from(textAreaInput).forEach((textarea: any) => {
+        const inputError = document.querySelector(
+          `[name="review[${textarea.id}]"] + span.error`
         );
         if (inputError !== null) {
           showError(textarea, inputError);

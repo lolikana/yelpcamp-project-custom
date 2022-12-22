@@ -55,6 +55,18 @@ Array.from(textAreaInput).forEach((textarea) => {
         }
     });
 });
+Array.from(textAreaInput).forEach((textarea) => {
+    const inputError = document.querySelector(`[name="review[${textarea.id}]"] + span.error`);
+    textarea?.addEventListener('input', (_event) => {
+        if (textarea.validity.valid && inputError !== null) {
+            inputError.textContent = '';
+            textarea.classList.add('error');
+        }
+        if (!textarea.validity.valid && inputError !== null) {
+            showError(textarea, inputError);
+        }
+    });
+});
 Array.from(validationForms).forEach((form) => {
     form.addEventListener('submit', (event) => {
         if (!form.checkValidity()) {
@@ -66,6 +78,12 @@ Array.from(validationForms).forEach((form) => {
             });
             Array.from(textAreaInput).forEach((textarea) => {
                 const inputError = document.querySelector(`[for="${textarea.id}"] + span.error`);
+                if (inputError !== null) {
+                    showError(textarea, inputError);
+                }
+            });
+            Array.from(textAreaInput).forEach((textarea) => {
+                const inputError = document.querySelector(`[name="review[${textarea.id}]"] + span.error`);
                 if (inputError !== null) {
                     showError(textarea, inputError);
                 }
