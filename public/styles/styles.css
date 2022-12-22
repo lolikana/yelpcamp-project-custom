@@ -911,6 +911,10 @@ video {
   height: 0.5rem;
 }
 
+.h-1\/4 {
+  height: 25%;
+}
+
 .w-full {
   width: 100%;
 }
@@ -955,6 +959,10 @@ video {
 
 .max-w-xl {
   max-width: 36rem;
+}
+
+.flex-1 {
+  flex: 1 1 0%;
 }
 
 .grow {
@@ -1069,6 +1077,10 @@ video {
 
 .overflow-hidden {
   overflow: hidden;
+}
+
+.overflow-scroll {
+  overflow: scroll;
 }
 
 .overflow-x-hidden {

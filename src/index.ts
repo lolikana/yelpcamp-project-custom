@@ -72,7 +72,7 @@ app.get(
   catchAsync(async (req, res, next) => {
     try {
       const { id } = req.params;
-      const campground = await CampgroundModel.findById(id);
+      const campground = await CampgroundModel.findById(id).populate('reviews');
       res.render(`campgrounds/detail`, { id, campground });
     } catch (err: unknown) {
       next(new ExpressError('Campground not found', 404));
