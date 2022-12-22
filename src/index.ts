@@ -11,7 +11,7 @@ import methodOverride from 'method-override';
 import mongoose from 'mongoose';
 import path from 'path';
 
-import { validateCampground } from './libs/validations';
+import { validateCampground, validateReview } from './libs/validations';
 import { CampgroundModel } from './models/campgrounds';
 import { ReviewModel } from './models/review';
 import { catchAsync } from './utils/catchAsync';
@@ -116,6 +116,7 @@ app.delete(
 
 app.post(
   '/campgrounds/:id/reviews',
+  validateReview,
   catchAsync(async (req, res) => {
     const { id } = req.params;
     const campground = await CampgroundModel.findById(id);
