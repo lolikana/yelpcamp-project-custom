@@ -20,7 +20,7 @@
   }
 
   .btn-delete {
-    @apply h-9 rounded-md border border-blue-600 py-1 px-2 font-semibold text-blue-600  hover:border-transparent  hover:bg-blue-600 hover:text-white;
+    @apply h-9 rounded-md border border-pink-600 py-1 px-2 font-semibold text-pink-600  hover:border-transparent  hover:bg-pink-600 hover:text-white;
   }
 
   .current-page {
