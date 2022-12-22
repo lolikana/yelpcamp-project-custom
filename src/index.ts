@@ -13,6 +13,7 @@ import path from 'path';
 
 import { validateCampground } from './libs/validations';
 import { CampgroundModel } from './models/campgrounds';
+import { ReviewModel } from './models/review';
 import { catchAsync } from './utils/catchAsync';
 import { ExpressError } from './utils/ExpressError';
 
@@ -111,6 +112,19 @@ app.delete(
 
     res.redirect('/campgrounds');
   }) as RequestHandler
+);
+
+app.post(
+  '/campgrounds/:id/reviews',
+  catchAsync(async (req, res) => {
+    const { id } = req.params;
+    const campground = await CampgroundModel.findById(id);
+    const review = new ReviewModel(req.body.review);
+    campground?.reviews.push(review.id);
+    await campground?.save();
+    await review.save();
+    res.redirect(`/campgrounds/${campground?._id}`);
+  })
 );
 
 app.all('*', (_req, _res, next) => {
