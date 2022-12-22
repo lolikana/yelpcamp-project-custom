@@ -69,7 +69,7 @@
     <div class="my-2 text-gray-400">2 days ago</div>
   </div>
   <div class="border-1 border-t border-slate-100 px-3 py-2">
-    <form action="">
+    <form action="/campgrounds/<%= campground._id %>/reviews" method="POST">
       <div class="div-range-size mb-3 flex w-full flex-col font-bold">
         <label class="mb-1" for="range-rating">Rating</label>
         <div class="flex items-center">

@@ -10,6 +10,7 @@ const mongoose_1 = __importDefault(require("mongoose"));
 const path_1 = __importDefault(require("path"));
 const validations_1 = require("./libs/validations");
 const campgrounds_1 = require("./models/campgrounds");
+const review_1 = require("./models/review");
 const catchAsync_1 = require("./utils/catchAsync");
 const ExpressError_1 = require("./utils/ExpressError");
 const app = (0, express_1.default)();
@@ -69,6 +70,15 @@ app.delete('/campgrounds/:id', (0, catchAsync_1.catchAsync)(async (req, res) => 
     const { id } = req.params;
     await campgrounds_1.CampgroundModel.findByIdAndDelete(id);
     res.redirect('/campgrounds');
+}));
+app.post('/campgrounds/:id/reviews', (0, catchAsync_1.catchAsync)(async (req, res) => {
+    const { id } = req.params;
+    const campground = await campgrounds_1.CampgroundModel.findById(id);
+    const review = new review_1.ReviewModel(req.body.review);
+    campground?.reviews.push(review.id);
+    await campground?.save();
+    await review.save();
+    res.redirect(`/campgrounds/${campground?._id}`);
 }));
 app.all('*', (_req, _res, next) => {
     next(new ExpressError_1.ExpressError('Page Not Found!!', 404));
