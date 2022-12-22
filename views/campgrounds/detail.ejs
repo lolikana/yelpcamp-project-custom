@@ -119,14 +119,29 @@
   <section class="px-2">
     <hr class="w-full" />
     <% for (let review of campground.reviews) {%>
-    <div class="py-3">
-      <h3 class="text-lg font-bold">
-        Rating:
-        <span class="rating-review-span">
-          <% for (let i=1; i <= review.rating; i++) { %> ⭐️ <% } %>
-        </span>
-      </h3>
-      <p><%= review.body %></p>
+    <div
+      class="flex flex-col py-3 md:flex-row md:items-center md:justify-between"
+    >
+      <div class="md:w-3/4">
+        <div>
+          <div class="flex flex-row items-center">
+            <h3 class="text-lg font-bold">Rating:</h3>
+            <span class="rating-review-span ml-2">
+              <% for (let i=1; i <= review.rating; i++) { %> ⭐️ <% } %>
+            </span>
+          </div>
+          <p><%= review.body %></p>
+        </div>
+      </div>
+      <div class="btn-delete mt-1 w-fit">
+        <form
+          action="/campgrounds/<%= campground._id %>/reviews/<%= review._id %>?_method=DELETE"
+          method="POST"
+          class="mb-0"
+        >
+          <button>Delete review</button>
+        </form>
+      </div>
     </div>
     <hr class="w-full" />
     <% } %>
