@@ -1,6 +1,7 @@
 import { model, Schema, Types } from 'mongoose';
 
 import { ICampground } from '../libs/types';
+import { ReviewModel } from './review';
 
 const CampgroundSchema = new Schema<ICampground>({
   title: String,
@@ -20,6 +21,17 @@ const CampgroundSchema = new Schema<ICampground>({
       ref: 'Review'
     }
   ]
+});
+
+// query middleware "findOneAndDelete" is connected to delete method "findByIdAndDelete"
+CampgroundSchema.post('findOneAndDelete', async doc => {
+  if (doc !== null) {
+    await ReviewModel.deleteMany({
+      _id: {
+        $in: doc.reviews
+      }
+    });
+  }
 });
 
 export const CampgroundModel = model('Campground', CampgroundSchema);
