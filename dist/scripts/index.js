@@ -87,8 +87,27 @@ const reviewTextarea = document.querySelector('[aria-limit-textarea]');
 const limitCharacter = reviewTextarea?.getAttribute('maxlength');
 const countCurr = document.getElementById('count-current');
 const countMax = document.getElementById('count-maximum');
-countMax.textContent = limitCharacter.toString();
+if (countMax != null && limitCharacter != null) {
+    countMax.textContent = limitCharacter;
+}
 reviewTextarea?.addEventListener('input', (e) => {
-    countCurr.textContent = e.target.value.length;
+    if (countCurr != null)
+        countCurr.textContent = e.target.value.length;
 });
+const rangeRating = document.querySelector('#range-rating');
+const outputRangeRating = document.querySelector('.range-output');
+const rangeRatingOutput = (size) => {
+    if (outputRangeRating !== null) {
+        outputRangeRating.textContent = '';
+        for (let i = 1; i <= size; i++) {
+            const span = document.createElement('span');
+            span.innerHTML = ' ⭐️ ';
+            outputRangeRating.appendChild(span);
+        }
+    }
+};
+rangeRatingOutput(+rangeRating.value);
+rangeRating.oninput = (e) => {
+    rangeRatingOutput(e.target.value);
+};
 //# sourceMappingURL=index.js.map

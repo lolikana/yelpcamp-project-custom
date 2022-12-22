@@ -116,11 +116,37 @@ const showError = (
 // START Character count of textarea
 const reviewTextarea = document.querySelector('[aria-limit-textarea]');
 const limitCharacter = reviewTextarea?.getAttribute('maxlength');
-const countCurr = document.getElementById('count-current')!;
-const countMax = document.getElementById('count-maximum')!;
-countMax.textContent = limitCharacter!.toString();
+const countCurr = document.getElementById('count-current');
+const countMax = document.getElementById('count-maximum');
+
+if (countMax != null && limitCharacter != null) {
+  countMax.textContent = limitCharacter;
+}
 
 reviewTextarea?.addEventListener('input', (e: any) => {
-  countCurr.textContent = e.target.value.length;
+  if (countCurr != null) countCurr.textContent = e.target.value.length;
 });
 // END Character count of textarea
+
+// START range slide custom
+const rangeRating = document.querySelector('#range-rating') as HTMLInputElement;
+const outputRangeRating = document.querySelector('.range-output');
+
+const rangeRatingOutput = (size: number): void => {
+  if (outputRangeRating !== null) {
+    outputRangeRating.textContent = '';
+    for (let i = 1; i <= size; i++) {
+      const span = document.createElement('span');
+      span.innerHTML = ' ⭐️ ';
+      outputRangeRating.appendChild(span);
+    }
+  }
+};
+
+rangeRatingOutput(+rangeRating.value);
+
+rangeRating.oninput = (e: any) => {
+  rangeRatingOutput(e.target.value);
+};
+
+// END range slide custom
