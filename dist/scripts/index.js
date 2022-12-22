@@ -124,8 +124,10 @@ const rangeRatingOutput = (size) => {
         }
     }
 };
-rangeRatingOutput(+rangeRating.value);
-rangeRating.oninput = (e) => {
-    rangeRatingOutput(e.target.value);
-};
+if (rangeRating != null) {
+    rangeRatingOutput(+rangeRating.value);
+    rangeRating.oninput = (e) => {
+        rangeRatingOutput(e.target.value);
+    };
+}
 //# sourceMappingURL=index.js.map

@@ -168,10 +168,10 @@ const rangeRatingOutput = (size: number): void => {
   }
 };
 
-rangeRatingOutput(+rangeRating.value);
-
-rangeRating.oninput = (e: any) => {
-  rangeRatingOutput(e.target.value);
-};
-
+if (rangeRating != null) {
+  rangeRatingOutput(+rangeRating.value);
+  rangeRating.oninput = (e: any) => {
+    rangeRatingOutput(e.target.value);
+  };
+}
 // END range slide custom

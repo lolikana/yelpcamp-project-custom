@@ -915,6 +915,22 @@ video {
   height: 25%;
 }
 
+.min-h-full {
+  min-height: 100%;
+}
+
+.min-h-\[\] {
+  min-height: ;
+}
+
+.min-h-\[2\] {
+  min-height: 2;
+}
+
+.min-h-\[200px\] {
+  min-height: 200px;
+}
+
 .w-full {
   width: 100%;
 }
@@ -1672,6 +1688,14 @@ select:-webkit-autofill:focus {
 
   .sm\:h-10 {
     height: 2.5rem;
+  }
+
+  .sm\:min-h-\[\] {
+    min-height: ;
+  }
+
+  .sm\:min-h-\[400px\] {
+    min-height: 400px;
   }
 
   .sm\:max-w-sm {
