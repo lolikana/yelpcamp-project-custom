@@ -2,6 +2,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.CampgroundModel = void 0;
 const mongoose_1 = require("mongoose");
+const review_1 = require("./review");
 const CampgroundSchema = new mongoose_1.Schema({
     title: String,
     image: String,
@@ -20,6 +21,15 @@ const CampgroundSchema = new mongoose_1.Schema({
             ref: 'Review'
         }
     ]
+});
+CampgroundSchema.post('findOneAndDelete', async (doc) => {
+    if (doc !== null) {
+        await review_1.ReviewModel.deleteMany({
+            _id: {
+                $in: doc.reviews
+            }
+        });
+    }
 });
 exports.CampgroundModel = (0, mongoose_1.model)('Campground', CampgroundSchema);
 //# sourceMappingURL=campgrounds.js.map
