@@ -116,4 +116,11 @@
       <button class="btn-back">Submit</button>
     </form>
   </div>
+  <section class="h-1/4 overflow-y-scroll">
+    <ul>
+      <% for (review of campground.reviews) {%>
+      <li>Rating: <%= review.rating %>, <%= review.body %></li>
+      <% } %>
+    </ul>
+  </section>
 </article>
