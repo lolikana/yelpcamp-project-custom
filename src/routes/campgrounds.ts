@@ -63,6 +63,7 @@ router.put(
       },
       { new: true }
     );
+    req.flash('success', 'Successfully updated campground');
     res.redirect(`/campgrounds/${campground?._id}`);
   }) as RequestHandler
 );
@@ -72,7 +73,7 @@ router.delete(
   catchAsync(async (req, res) => {
     const { id } = req.params;
     await CampgroundModel.findByIdAndDelete(id);
-
+    req.flash('success', 'Successfully deleted campground');
     res.redirect('/');
   }) as RequestHandler
 );
