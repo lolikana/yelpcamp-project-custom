@@ -175,3 +175,52 @@ if (rangeRating != null) {
   };
 }
 // END range slide custom
+
+// START close flash message
+const Default = {
+  triggerEl: null,
+  transition: 'transition-opacity',
+  duration: 300,
+  timing: 'ease-out'
+};
+
+class Dismiss {
+  _targetEl: HTMLElement;
+  _options: any;
+  constructor(targetEl: HTMLElement, options: any) {
+    this._targetEl = targetEl;
+    this._options = { ...Default, ...options };
+  }
+
+  hide(): void {
+    this._targetEl.classList.add(
+      this._options.transition,
+      `duration-${this._options.duration}`,
+      this._options.timing,
+      'opacity-0'
+    );
+    setTimeout(() => {
+      this._targetEl.classList.add('hidden');
+    }, this._options.duration);
+  }
+}
+
+const successAlertMsg = document.getElementById('success-alert');
+const successAlertBtn = document.querySelector(
+  'button[data-dismiss-target="#success-alert"]'
+);
+
+successAlertBtn?.addEventListener('click', () => {
+  // options object
+  const options = {
+    transition: 'transition-opacity',
+    duration: 200,
+    timing: 'ease-out'
+  };
+
+  if (successAlertMsg == null) return;
+
+  const dismiss = new Dismiss(successAlertMsg, options);
+  dismiss.hide();
+});
+// END close flash message

@@ -130,4 +130,37 @@ if (rangeRating != null) {
         rangeRatingOutput(e.target.value);
     };
 }
+const Default = {
+    triggerEl: null,
+    transition: 'transition-opacity',
+    duration: 300,
+    timing: 'ease-out'
+};
+class Dismiss {
+    _targetEl;
+    _options;
+    constructor(targetEl, options) {
+        this._targetEl = targetEl;
+        this._options = { ...Default, ...options };
+    }
+    hide() {
+        this._targetEl.classList.add(this._options.transition, `duration-${this._options.duration}`, this._options.timing, 'opacity-0');
+        setTimeout(() => {
+            this._targetEl.classList.add('hidden');
+        }, this._options.duration);
+    }
+}
+const successAlertMsg = document.getElementById('success-alert');
+const successAlertBtn = document.querySelector('button[data-dismiss-target="#success-alert"]');
+successAlertBtn?.addEventListener('click', () => {
+    const options = {
+        transition: 'transition-opacity',
+        duration: 200,
+        timing: 'ease-out'
+    };
+    if (successAlertMsg == null)
+        return;
+    const dismiss = new Dismiss(successAlertMsg, options);
+    dismiss.hide();
+});
 //# sourceMappingURL=index.js.map
