@@ -2,6 +2,7 @@
 // @ts-expect-error
 import engine from 'ejs-mate';
 import express, { NextFunction, Request, Response } from 'express';
+import session from 'express-session';
 import methodOverride from 'method-override';
 import mongoose from 'mongoose';
 import path from 'path';
@@ -33,6 +34,18 @@ app.use(express.static(path.join(__dirname, '../dist')));
 // It parses incoming requests with urlencoded payloads and is based on body-parser.
 app.use(express.urlencoded({ extended: true }));
 app.use(methodOverride('_method'));
+
+const sessionConfig = {
+  secret: 'thisshouldbeabettersecret',
+  resave: false,
+  saveUninitialized: true,
+  cookie: {
+    HttpOnly: true,
+    expires: new Date(Date.now() + 1000 * 60 * 60 * 24 * 7),
+    maxAge: 1000 * 60 * 60 * 24 * 7
+  }
+};
+app.use(session(sessionConfig));
 
 app.use('/campgrounds', campgroundsRoutes);
 app.use('/campgrounds/:id/reviews', reviewsRoutes);
