@@ -1,19 +1,15 @@
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-expect-error
 import engine from 'ejs-mate';
-import express, {
-  NextFunction,
-  Request,
-  RequestHandler,
-  Response
-} from 'express';
+import express, { NextFunction, Request, Response } from 'express';
 import methodOverride from 'method-override';
 import mongoose from 'mongoose';
 import path from 'path';
 
-import { validateCampground, validateReview } from './libs/validations';
+import { validateReview } from './libs/validations';
 import { CampgroundModel } from './models/campgrounds';
 import { ReviewModel } from './models/review';
+import { router as campgroundsRoutes } from './routes/campgrounds';
 import { catchAsync } from './utils/catchAsync';
 import { ExpressError } from './utils/ExpressError';
 
@@ -41,78 +37,11 @@ app.use(express.static(path.join(__dirname, '../dist')));
 app.use(express.urlencoded({ extended: true }));
 app.use(methodOverride('_method'));
 
+app.use('/campgrounds', campgroundsRoutes);
+
 app.get('/', (_req, res) => {
   res.render('index');
 });
-
-app.get(
-  '/campgrounds',
-  catchAsync(async (_req, res) => {
-    const campgrounds = await CampgroundModel.find({});
-    res.render('campgrounds/index', { campgrounds });
-  }) as RequestHandler
-);
-
-app.get('/campgrounds/new', (_req, res) => {
-  res.render('campgrounds/new');
-});
-
-app.post(
-  '/campgrounds',
-  validateCampground,
-  catchAsync(async (req, res, _next) => {
-    const campground = new CampgroundModel(req.body.campground);
-    await campground.save();
-    res.redirect(`/campgrounds/${campground._id}`);
-  }) as RequestHandler
-);
-
-app.get(
-  '/campgrounds/:id',
-  catchAsync(async (req, res, next) => {
-    try {
-      const { id } = req.params;
-      const campground = await CampgroundModel.findById(id).populate('reviews');
-      res.render(`campgrounds/detail`, { id, campground });
-    } catch (err: unknown) {
-      next(new ExpressError('Campground not found', 404));
-    }
-  }) as RequestHandler
-);
-
-app.get(
-  '/campgrounds/:id/edit',
-  catchAsync(async (req, res) => {
-    const campground = await CampgroundModel.findById(req.params.id);
-    res.render('campgrounds/edit', { campground });
-  }) as RequestHandler
-);
-
-app.put(
-  '/campgrounds/:id',
-  validateCampground,
-  catchAsync(async (req, res) => {
-    const { id } = req.params;
-    const campground = await CampgroundModel.findByIdAndUpdate(
-      id,
-      {
-        ...req.body.campground
-      },
-      { new: true }
-    );
-    res.redirect(`/campgrounds/${campground?._id}`);
-  }) as RequestHandler
-);
-
-app.delete(
-  '/campgrounds/:id',
-  catchAsync(async (req, res) => {
-    const { id } = req.params;
-    await CampgroundModel.findByIdAndDelete(id);
-
-    res.redirect('/campgrounds');
-  }) as RequestHandler
-);
 
 app.post(
   '/campgrounds/:id/reviews',

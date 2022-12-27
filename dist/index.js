@@ -11,6 +11,7 @@ const path_1 = __importDefault(require("path"));
 const validations_1 = require("./libs/validations");
 const campgrounds_1 = require("./models/campgrounds");
 const review_1 = require("./models/review");
+const campgrounds_2 = require("./routes/campgrounds");
 const catchAsync_1 = require("./utils/catchAsync");
 const ExpressError_1 = require("./utils/ExpressError");
 const app = (0, express_1.default)();
@@ -30,47 +31,10 @@ app.use(express_1.default.static(path_1.default.join(__dirname, '../public')));
 app.use(express_1.default.static(path_1.default.join(__dirname, '../dist')));
 app.use(express_1.default.urlencoded({ extended: true }));
 app.use((0, method_override_1.default)('_method'));
+app.use('/campgrounds', campgrounds_2.router);
 app.get('/', (_req, res) => {
     res.render('index');
 });
-app.get('/campgrounds', (0, catchAsync_1.catchAsync)(async (_req, res) => {
-    const campgrounds = await campgrounds_1.CampgroundModel.find({});
-    res.render('campgrounds/index', { campgrounds });
-}));
-app.get('/campgrounds/new', (_req, res) => {
-    res.render('campgrounds/new');
-});
-app.post('/campgrounds', validations_1.validateCampground, (0, catchAsync_1.catchAsync)(async (req, res, _next) => {
-    const campground = new campgrounds_1.CampgroundModel(req.body.campground);
-    await campground.save();
-    res.redirect(`/campgrounds/${campground._id}`);
-}));
-app.get('/campgrounds/:id', (0, catchAsync_1.catchAsync)(async (req, res, next) => {
-    try {
-        const { id } = req.params;
-        const campground = await campgrounds_1.CampgroundModel.findById(id).populate('reviews');
-        res.render(`campgrounds/detail`, { id, campground });
-    }
-    catch (err) {
-        next(new ExpressError_1.ExpressError('Campground not found', 404));
-    }
-}));
-app.get('/campgrounds/:id/edit', (0, catchAsync_1.catchAsync)(async (req, res) => {
-    const campground = await campgrounds_1.CampgroundModel.findById(req.params.id);
-    res.render('campgrounds/edit', { campground });
-}));
-app.put('/campgrounds/:id', validations_1.validateCampground, (0, catchAsync_1.catchAsync)(async (req, res) => {
-    const { id } = req.params;
-    const campground = await campgrounds_1.CampgroundModel.findByIdAndUpdate(id, {
-        ...req.body.campground
-    }, { new: true });
-    res.redirect(`/campgrounds/${campground?._id}`);
-}));
-app.delete('/campgrounds/:id', (0, catchAsync_1.catchAsync)(async (req, res) => {
-    const { id } = req.params;
-    await campgrounds_1.CampgroundModel.findByIdAndDelete(id);
-    res.redirect('/campgrounds');
-}));
 app.post('/campgrounds/:id/reviews', validations_1.validateReview, (0, catchAsync_1.catchAsync)(async (req, res) => {
     const { id } = req.params;
     const campground = await campgrounds_1.CampgroundModel.findById(id);

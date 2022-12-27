@@ -1640,8 +1640,16 @@ select:-webkit-autofill:focus {
     min-height: 400px;
   }
 
+  .sm\:min-w-\[300px\] {
+    min-width: 300px;
+  }
+
   .sm\:max-w-sm {
     max-width: 24rem;
+  }
+
+  .sm\:flex-1 {
+    flex: 1 1 0%;
   }
 }
 
@@ -1651,12 +1659,12 @@ select:-webkit-autofill:focus {
     margin-right: auto;
   }
 
-  .md\:mb-0 {
-    margin-bottom: 0px;
-  }
-
   .md\:mt-0 {
     margin-top: 0px;
+  }
+
+  .md\:mb-0 {
+    margin-bottom: 0px;
   }
 
   .md\:block {
