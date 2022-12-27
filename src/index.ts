@@ -6,11 +6,8 @@ import methodOverride from 'method-override';
 import mongoose from 'mongoose';
 import path from 'path';
 
-import { validateReview } from './libs/validations';
-import { CampgroundModel } from './models/campgrounds';
-import { ReviewModel } from './models/review';
 import { router as campgroundsRoutes } from './routes/campgrounds';
-import { catchAsync } from './utils/catchAsync';
+import { router as reviewsRoutes } from './routes/reviews';
 import { ExpressError } from './utils/ExpressError';
 
 const app = express();
@@ -38,36 +35,11 @@ app.use(express.urlencoded({ extended: true }));
 app.use(methodOverride('_method'));
 
 app.use('/campgrounds', campgroundsRoutes);
+app.use('/campgrounds/:id/reviews', reviewsRoutes);
 
 app.get('/', (_req, res) => {
   res.render('index');
 });
-
-app.post(
-  '/campgrounds/:id/reviews',
-  validateReview,
-  catchAsync(async (req, res) => {
-    const { id } = req.params;
-    const campground = await CampgroundModel.findById(id);
-    const review = new ReviewModel(req.body.review);
-    campground?.reviews.push(review.id);
-    await campground?.save();
-    await review.save();
-    res.redirect(`/campgrounds/${campground?._id}`);
-  })
-);
-
-app.delete(
-  '/campgrounds/:id/reviews/:reviewId',
-  catchAsync(async (req, res) => {
-    const { id, reviewId } = req.params;
-    await CampgroundModel.findByIdAndUpdate(id, {
-      $pull: { reviews: reviewId }
-    });
-    await ReviewModel.findByIdAndDelete(reviewId);
-    res.redirect(`/campgrounds/${id}`);
-  })
-);
 
 app.all('*', (_req, _res, next) => {
   next(new ExpressError('Page Not Found!!', 404));

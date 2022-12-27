@@ -8,11 +8,8 @@ const express_1 = __importDefault(require("express"));
 const method_override_1 = __importDefault(require("method-override"));
 const mongoose_1 = __importDefault(require("mongoose"));
 const path_1 = __importDefault(require("path"));
-const validations_1 = require("./libs/validations");
-const campgrounds_1 = require("./models/campgrounds");
-const review_1 = require("./models/review");
-const campgrounds_2 = require("./routes/campgrounds");
-const catchAsync_1 = require("./utils/catchAsync");
+const campgrounds_1 = require("./routes/campgrounds");
+const reviews_1 = require("./routes/reviews");
 const ExpressError_1 = require("./utils/ExpressError");
 const app = (0, express_1.default)();
 mongoose_1.default
@@ -31,27 +28,11 @@ app.use(express_1.default.static(path_1.default.join(__dirname, '../public')));
 app.use(express_1.default.static(path_1.default.join(__dirname, '../dist')));
 app.use(express_1.default.urlencoded({ extended: true }));
 app.use((0, method_override_1.default)('_method'));
-app.use('/campgrounds', campgrounds_2.router);
+app.use('/campgrounds', campgrounds_1.router);
+app.use('/campgrounds/:id/reviews', reviews_1.router);
 app.get('/', (_req, res) => {
     res.render('index');
 });
-app.post('/campgrounds/:id/reviews', validations_1.validateReview, (0, catchAsync_1.catchAsync)(async (req, res) => {
-    const { id } = req.params;
-    const campground = await campgrounds_1.CampgroundModel.findById(id);
-    const review = new review_1.ReviewModel(req.body.review);
-    campground?.reviews.push(review.id);
-    await campground?.save();
-    await review.save();
-    res.redirect(`/campgrounds/${campground?._id}`);
-}));
-app.delete('/campgrounds/:id/reviews/:reviewId', (0, catchAsync_1.catchAsync)(async (req, res) => {
-    const { id, reviewId } = req.params;
-    await campgrounds_1.CampgroundModel.findByIdAndUpdate(id, {
-        $pull: { reviews: reviewId }
-    });
-    await review_1.ReviewModel.findByIdAndDelete(reviewId);
-    res.redirect(`/campgrounds/${id}`);
-}));
 app.all('*', (_req, _res, next) => {
     next(new ExpressError_1.ExpressError('Page Not Found!!', 404));
 });
