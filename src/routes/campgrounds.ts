@@ -3,7 +3,7 @@ import { RequestHandler, Router } from 'express';
 import { validateCampground } from '../libs/validations';
 import { CampgroundModel } from '../models/campgrounds';
 import { catchAsync } from '../utils/catchAsync';
-import { ExpressError } from '../utils/ExpressError';
+// import { ExpressError } from '../utils/ExpressError';
 
 export const router = Router();
 
@@ -32,13 +32,15 @@ router.post(
 
 router.get(
   '/:id',
-  catchAsync(async (req, res, next) => {
+  catchAsync(async (req, res, _next) => {
     try {
       const { id } = req.params;
       const campground = await CampgroundModel.findById(id).populate('reviews');
       res.render(`campgrounds/detail`, { id, campground });
     } catch (err: unknown) {
-      next(new ExpressError('Campground not found', 404));
+      req.flash('error', 'Cannot find that campground');
+      return res.redirect('/campgrounds');
+      // next(new ExpressError('Campground not found', 404));
     }
   }) as RequestHandler
 );
@@ -46,8 +48,13 @@ router.get(
 router.get(
   '/:id/edit',
   catchAsync(async (req, res) => {
-    const campground = await CampgroundModel.findById(req.params.id);
-    res.render('campgrounds/edit', { campground });
+    try {
+      const campground = await CampgroundModel.findById(req.params.id);
+      res.render('campgrounds/edit', { campground });
+    } catch (err: unknown) {
+      req.flash('error', 'Cannot find that campground to edit');
+      return res.redirect('/campgrounds');
+    }
   }) as RequestHandler
 );
 

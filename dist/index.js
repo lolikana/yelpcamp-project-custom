@@ -44,6 +44,7 @@ app.use((0, express_session_1.default)(sessionConfig));
 app.use((0, connect_flash_1.default)());
 app.use((req, res, next) => {
     res.locals.success = req.flash('success');
+    res.locals.error = req.flash('error');
     next();
 });
 app.use('/campgrounds', campgrounds_1.router);
