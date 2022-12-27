@@ -25,6 +25,7 @@ router.post(
   catchAsync(async (req, res, _next) => {
     const campground = new CampgroundModel(req.body.campground);
     await campground.save();
+    req.flash('success', 'Successfully made a new campground!');
     res.redirect(`/campgrounds/${campground._id}`);
   }) as RequestHandler
 );

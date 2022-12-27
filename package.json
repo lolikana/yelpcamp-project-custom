@@ -29,6 +29,7 @@
   "license": "ISC",
   "devDependencies": {
     "@tailwindcss/line-clamp": "^0.4.2",
+    "@types/connect-flash": "^0.0.37",
     "@types/express": "^4.17.14",
     "@types/express-session": "^1.17.5",
     "@types/method-override": "^0.0.32",
@@ -54,6 +55,7 @@
     "typescript": "^4.8.4"
   },
   "dependencies": {
+    "connect-flash": "^0.1.1",
     "ejs": "^3.1.8",
     "ejs-mate": "^4.0.0",
     "express": "^4.18.2",

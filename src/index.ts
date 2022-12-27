@@ -1,3 +1,4 @@
+import flash from 'connect-flash';
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-expect-error
 import engine from 'ejs-mate';
@@ -46,6 +47,12 @@ const sessionConfig = {
   }
 };
 app.use(session(sessionConfig));
+app.use(flash());
+
+app.use((req, res, next) => {
+  res.locals.success = req.flash('success');
+  next();
+});
 
 app.use('/campgrounds', campgroundsRoutes);
 app.use('/campgrounds/:id/reviews', reviewsRoutes);
