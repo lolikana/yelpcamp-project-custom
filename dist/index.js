@@ -3,6 +3,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+const connect_flash_1 = __importDefault(require("connect-flash"));
 const ejs_mate_1 = __importDefault(require("ejs-mate"));
 const express_1 = __importDefault(require("express"));
 const express_session_1 = __importDefault(require("express-session"));
@@ -40,6 +41,11 @@ const sessionConfig = {
     }
 };
 app.use((0, express_session_1.default)(sessionConfig));
+app.use((0, connect_flash_1.default)());
+app.use((req, res, next) => {
+    res.locals.success = req.flash('success');
+    next();
+});
 app.use('/campgrounds', campgrounds_1.router);
 app.use('/campgrounds/:id/reviews', reviews_1.router);
 app.get('/', (_req, res) => {
