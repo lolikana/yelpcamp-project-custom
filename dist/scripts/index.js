@@ -163,4 +163,17 @@ successAlertBtn?.addEventListener('click', () => {
     const dismiss = new Dismiss(successAlertMsg, options);
     dismiss.hide();
 });
+const errorAlertMsg = document.getElementById('error-alert');
+const errorAlertBtn = document.querySelector('button[data-dismiss-target="#error-alert"]');
+errorAlertBtn?.addEventListener('click', () => {
+    const options = {
+        transition: 'transition-opacity',
+        duration: 200,
+        timing: 'ease-out'
+    };
+    if (errorAlertMsg == null)
+        return;
+    const dismiss = new Dismiss(errorAlertMsg, options);
+    dismiss.hide();
+});
 //# sourceMappingURL=index.js.map
