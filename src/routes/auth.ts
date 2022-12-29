@@ -42,3 +42,9 @@ router.post(
     res.redirect('/campgrounds');
   }
 );
+
+router.get('/logout', (req, res) => {
+  req.logout((err: unknown) => console.log(err));
+  req.flash('success', 'logout');
+  res.redirect('/campgrounds');
+});
