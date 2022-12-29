@@ -47,7 +47,7 @@
         <li>
           <a
             href="/"
-            class="block rounded py-2 pr-4 pl-3 text-gray-700 hover:bg-gray-100 dark:text-gray-200 dark:hover:bg-gray-700 dark:hover:text-white md:border-0 md:p-1 md:hover:bg-transparent md:hover:text-blue-700 md:dark:hover:bg-transparent md:dark:hover:text-white"
+            class="block rounded py-2 pr-4 pl-3 text-gray-700 hover:bg-gray-100 dark:text-gray-200 dark:hover:bg-gray-700 dark:hover:text-white md:border-0 md:px-2 md:py-1 md:hover:bg-transparent md:hover:text-blue-700 md:dark:hover:bg-transparent md:dark:hover:text-white"
             aria-current="page"
             >Homepage</a
           >
@@ -55,7 +55,7 @@
         <li>
           <a
             href="/campgrounds"
-            class="block rounded py-2 pr-4 pl-3 text-gray-700 hover:bg-gray-100 dark:text-gray-200 dark:hover:bg-gray-700 dark:hover:text-white md:border-0 md:p-1 md:hover:bg-transparent md:hover:text-blue-700 md:dark:hover:bg-transparent md:dark:hover:text-white"
+            class="block rounded py-2 pr-4 pl-3 text-gray-700 hover:bg-gray-100 dark:text-gray-200 dark:hover:bg-gray-700 dark:hover:text-white md:border-0 md:px-2 md:py-1 md:hover:bg-transparent md:hover:text-blue-700 md:dark:hover:bg-transparent md:dark:hover:text-white"
             aria-current="page"
             >Campgrounds</a
           >
@@ -63,11 +63,39 @@
         <li>
           <a
             href="/campgrounds/new"
-            class="block rounded py-2 pr-4 pl-3 text-gray-700 hover:bg-gray-100 dark:text-gray-200 dark:hover:bg-gray-700 dark:hover:text-white md:border-0 md:p-1 md:hover:bg-transparent md:hover:text-blue-700 md:dark:hover:bg-transparent md:dark:hover:text-white"
+            class="block rounded py-2 pr-4 pl-3 text-gray-700 hover:bg-gray-100 dark:text-gray-200 dark:hover:bg-gray-700 dark:hover:text-white md:border-0 md:px-2 md:py-1 md:hover:bg-transparent md:hover:text-blue-700 md:dark:hover:bg-transparent md:dark:hover:text-white"
             aria-current="page"
             >Add</a
           >
         </li>
+        <% if(!currentUser) { %>
+        <li>
+          <a
+            href="/login"
+            class="block rounded bg-blue-800 py-2 pr-4 pl-3 text-gray-700 hover:bg-gray-100 dark:text-gray-200 dark:hover:bg-blue-700 dark:hover:text-white md:border-0 md:px-2 md:py-1 md:hover:text-blue-700 md:dark:hover:text-white"
+            aria-current="page"
+            >Login</a
+          >
+        </li>
+        <li>
+          <a
+            href="/register"
+            class="block rounded bg-blue-500 py-2 pr-4 pl-3 text-gray-700 hover:bg-gray-100 dark:text-gray-200 dark:hover:bg-blue-700 dark:hover:text-white md:border-0 md:px-2 md:py-1 md:hover:text-blue-700 md:dark:hover:text-white"
+            aria-current="page"
+            >Register</a
+          >
+        </li>
+        <% } else { %>
+        <li>
+          <a
+            href="/logout"
+            class="block rounded bg-red-600 py-2 pr-4 pl-3 text-gray-700 hover:bg-gray-100 dark:text-gray-200 dark:hover:bg-red-700 dark:hover:text-white md:border-0 md:px-2 md:py-1 md:hover:text-blue-700 md:dark:hover:text-white"
+            aria-current="page"
+          >
+            <%= currentUser.username %>, Logout</a
+          >
+        </li>
+        <% } %>
       </ul>
     </div>
   </div>

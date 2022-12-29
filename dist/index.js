@@ -53,6 +53,7 @@ passport_1.default.use(new passport_local_1.default.Strategy(user_1.User.authent
 passport_1.default.serializeUser(user_1.User.serializeUser());
 passport_1.default.deserializeUser(user_1.User.deserializeUser());
 app.use((req, res, next) => {
+    res.locals.currentUser = req.user;
     res.locals.success = req.flash('success');
     res.locals.error = req.flash('error');
     next();
