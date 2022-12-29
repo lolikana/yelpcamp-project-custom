@@ -3,6 +3,7 @@ import { RequestHandler, Router } from 'express';
 import { validateCampground } from '../libs/validations';
 import { CampgroundModel } from '../models/campgrounds';
 import { catchAsync } from '../utils/catchAsync';
+import isLoggedIn from '../utils/isLoggedIn';
 // import { ExpressError } from '../utils/ExpressError';
 
 export const router = Router();
@@ -15,12 +16,13 @@ router.get(
   }) as RequestHandler
 );
 
-router.get('/new', (_req, res) => {
+router.get('/new', isLoggedIn, (_req, res) => {
   res.render('campgrounds/new');
 });
 
 router.post(
   '/',
+  isLoggedIn,
   validateCampground,
   catchAsync(async (req, res, _next) => {
     const campground = new CampgroundModel(req.body.campground);
@@ -47,6 +49,7 @@ router.get(
 
 router.get(
   '/:id/edit',
+  isLoggedIn,
   catchAsync(async (req, res) => {
     try {
       const campground = await CampgroundModel.findById(req.params.id);
@@ -60,6 +63,7 @@ router.get(
 
 router.put(
   '/:id',
+  isLoggedIn,
   validateCampground,
   catchAsync(async (req, res) => {
     const { id } = req.params;
@@ -77,6 +81,7 @@ router.put(
 
 router.delete(
   '/:id',
+  isLoggedIn,
   catchAsync(async (req, res) => {
     const { id } = req.params;
     await CampgroundModel.findByIdAndDelete(id);
