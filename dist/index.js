@@ -16,7 +16,6 @@ const user_1 = require("./models/user");
 const auth_1 = require("./routes/auth");
 const campgrounds_1 = require("./routes/campgrounds");
 const reviews_1 = require("./routes/reviews");
-const catchAsync_1 = require("./utils/catchAsync");
 const ExpressError_1 = require("./utils/ExpressError");
 const app = (0, express_1.default)();
 mongoose_1.default
@@ -58,11 +57,6 @@ app.use((req, res, next) => {
     res.locals.error = req.flash('error');
     next();
 });
-app.get('/fakeUser', (0, catchAsync_1.catchAsync)(async (_req, res) => {
-    const user = new user_1.User({ email: 'test@test.com', username: 'test' });
-    const registerUser = await user_1.User.register(user, 'password');
-    res.send(registerUser);
-}));
 app.use('/', auth_1.router);
 app.use('/campgrounds', campgrounds_1.router);
 app.use('/campgrounds/:id/reviews', reviews_1.router);
