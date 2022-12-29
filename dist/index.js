@@ -9,9 +9,13 @@ const express_1 = __importDefault(require("express"));
 const express_session_1 = __importDefault(require("express-session"));
 const method_override_1 = __importDefault(require("method-override"));
 const mongoose_1 = __importDefault(require("mongoose"));
+const passport_1 = __importDefault(require("passport"));
+const passport_local_1 = __importDefault(require("passport-local"));
 const path_1 = __importDefault(require("path"));
+const user_1 = require("./models/user");
 const campgrounds_1 = require("./routes/campgrounds");
 const reviews_1 = require("./routes/reviews");
+const catchAsync_1 = require("./utils/catchAsync");
 const ExpressError_1 = require("./utils/ExpressError");
 const app = (0, express_1.default)();
 mongoose_1.default
@@ -42,11 +46,21 @@ const sessionConfig = {
 };
 app.use((0, express_session_1.default)(sessionConfig));
 app.use((0, connect_flash_1.default)());
+app.use(passport_1.default.initialize());
+app.use(passport_1.default.session());
+passport_1.default.use(new passport_local_1.default.Strategy(user_1.User.authenticate()));
+passport_1.default.serializeUser(user_1.User.serializeUser());
+passport_1.default.deserializeUser(user_1.User.deserializeUser());
 app.use((req, res, next) => {
     res.locals.success = req.flash('success');
     res.locals.error = req.flash('error');
     next();
 });
+app.get('/fakeUser', (0, catchAsync_1.catchAsync)(async (_req, res) => {
+    const user = new user_1.User({ email: 'test@test.com', username: 'test' });
+    const registerUser = await user_1.User.register(user, 'password');
+    res.send(registerUser);
+}));
 app.use('/campgrounds', campgrounds_1.router);
 app.use('/campgrounds/:id/reviews', reviews_1.router);
 app.get('/', (_req, res) => {
