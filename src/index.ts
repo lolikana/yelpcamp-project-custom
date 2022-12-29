@@ -14,7 +14,6 @@ import { User } from './models/user';
 import { router as authRoutes } from './routes/auth';
 import { router as campgroundsRoutes } from './routes/campgrounds';
 import { router as reviewsRoutes } from './routes/reviews';
-import { catchAsync } from './utils/catchAsync';
 import { ExpressError } from './utils/ExpressError';
 
 const app = express();
@@ -68,15 +67,6 @@ app.use((req, res, next) => {
   res.locals.error = req.flash('error');
   next();
 });
-
-app.get(
-  '/fakeUser',
-  catchAsync(async (_req, res) => {
-    const user = new User({ email: 'test@test.com', username: 'test' });
-    const registerUser = await User.register(user, 'password');
-    res.send(registerUser);
-  })
-);
 
 app.use('/', authRoutes);
 app.use('/campgrounds', campgroundsRoutes);
