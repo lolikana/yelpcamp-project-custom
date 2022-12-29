@@ -47,6 +47,7 @@ router.post(
       req.session.returnTo !== undefined
         ? req.session.returnTo
         : '/campgrounds';
+    delete req.session.returnTo;
     res.redirect(redirectUrl);
   }
 );
