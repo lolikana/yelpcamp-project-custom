@@ -1,3 +1,11 @@
+export {};
+
+declare module 'express-session' {
+  interface SessionData {
+    returnTo: string;
+  }
+}
+
 export interface ICampground {
   title: string;
   image: string;

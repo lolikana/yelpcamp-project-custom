@@ -40,8 +40,9 @@
     /* Enable error reporting for codepaths that do not explicitly return in a function. */
 
     /* Completeness */
-    "skipLibCheck": true
+    "skipLibCheck": true,
     /* Skip type checking all .d.ts files. */
+    "typeRoots": ["./src/types", "./node_modules/@types"]
   },
   "exclude": ["./node_modules"],
   /* Specifies an array of filenames or patterns that should be skipped when resolving include. */
