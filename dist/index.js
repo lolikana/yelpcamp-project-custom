@@ -13,6 +13,7 @@ const passport_1 = __importDefault(require("passport"));
 const passport_local_1 = __importDefault(require("passport-local"));
 const path_1 = __importDefault(require("path"));
 const user_1 = require("./models/user");
+const auth_1 = require("./routes/auth");
 const campgrounds_1 = require("./routes/campgrounds");
 const reviews_1 = require("./routes/reviews");
 const catchAsync_1 = require("./utils/catchAsync");
@@ -61,6 +62,7 @@ app.get('/fakeUser', (0, catchAsync_1.catchAsync)(async (_req, res) => {
     const registerUser = await user_1.User.register(user, 'password');
     res.send(registerUser);
 }));
+app.use('/', auth_1.router);
 app.use('/campgrounds', campgrounds_1.router);
 app.use('/campgrounds/:id/reviews', reviews_1.router);
 app.get('/', (_req, res) => {

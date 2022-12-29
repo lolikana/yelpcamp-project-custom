@@ -11,6 +11,7 @@ import LocalStrategy from 'passport-local';
 import path from 'path';
 
 import { User } from './models/user';
+import { router as authRoutes } from './routes/auth';
 import { router as campgroundsRoutes } from './routes/campgrounds';
 import { router as reviewsRoutes } from './routes/reviews';
 import { catchAsync } from './utils/catchAsync';
@@ -76,6 +77,7 @@ app.get(
   })
 );
 
+app.use('/', authRoutes);
 app.use('/campgrounds', campgroundsRoutes);
 app.use('/campgrounds/:id/reviews', reviewsRoutes);
 
