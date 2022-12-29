@@ -6,10 +6,14 @@ import express, { NextFunction, Request, Response } from 'express';
 import session from 'express-session';
 import methodOverride from 'method-override';
 import mongoose from 'mongoose';
+import passport from 'passport';
+import LocalStrategy from 'passport-local';
 import path from 'path';
 
+import { User } from './models/user';
 import { router as campgroundsRoutes } from './routes/campgrounds';
 import { router as reviewsRoutes } from './routes/reviews';
+import { catchAsync } from './utils/catchAsync';
 import { ExpressError } from './utils/ExpressError';
 
 const app = express();
@@ -49,11 +53,28 @@ const sessionConfig = {
 app.use(session(sessionConfig));
 app.use(flash());
 
+app.use(passport.initialize());
+app.use(passport.session());
+// eslint-disable-next-line @typescript-eslint/no-misused-promises
+passport.use(new LocalStrategy.Strategy(User.authenticate()));
+
+passport.serializeUser(User.serializeUser());
+passport.deserializeUser(User.deserializeUser());
+
 app.use((req, res, next) => {
   res.locals.success = req.flash('success');
   res.locals.error = req.flash('error');
   next();
 });
+
+app.get(
+  '/fakeUser',
+  catchAsync(async (_req, res) => {
+    const user = new User({ email: 'test@test.com', username: 'test' });
+    const registerUser = await User.register(user, 'password');
+    res.send(registerUser);
+  })
+);
 
 app.use('/campgrounds', campgroundsRoutes);
 app.use('/campgrounds/:id/reviews', reviewsRoutes);
