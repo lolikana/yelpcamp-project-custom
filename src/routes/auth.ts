@@ -53,7 +53,7 @@ router.post(
 );
 
 router.get('/logout', (req, res) => {
-  req.logout((err: unknown) => console.log(err));
+  req.logout((err: unknown) => err !== undefined && console.log(err));
   req.flash('success', 'logout');
   res.redirect('/campgrounds');
 });
