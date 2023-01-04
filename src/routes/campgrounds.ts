@@ -40,7 +40,7 @@ router.get(
     try {
       const { id } = req.params;
       const campground = await CampgroundModel.findById(id)
-        .populate('reviews')
+        .populate({ path: 'reviews', populate: { path: 'author' } })
         .populate('author');
       res.render(`campgrounds/detail`, { id, campground });
     } catch (err: unknown) {

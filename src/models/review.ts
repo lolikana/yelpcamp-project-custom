@@ -1,4 +1,4 @@
-import { model, Schema } from 'mongoose';
+import { model, Schema, Types } from 'mongoose';
 
 import { IReview } from '../libs/types';
 
@@ -8,6 +8,10 @@ const reviewSchema = new Schema<IReview>({
   },
   rating: {
     type: Number
+  },
+  author: {
+    type: Types.ObjectId,
+    ref: 'User'
   }
 });
 

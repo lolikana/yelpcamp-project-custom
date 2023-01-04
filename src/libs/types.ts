@@ -23,6 +23,7 @@ export interface IReview {
   _id: Types.ObjectId;
   body: string;
   rating: number;
+  author: IUser;
 }
 
 export interface IUser {
