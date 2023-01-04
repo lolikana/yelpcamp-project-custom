@@ -47,6 +47,7 @@
   </div>
   <div class="flex flex-col px-3">
     <div class="flex h-fit flex-row items-center justify-between">
+      <% if(currentUser && campground.author.equals(currentUser._id)) { %>
       <div class="flex flex-row items-center gap-3">
         <a href="/campgrounds/<%= campground._id %>/edit" class="btn-submit"
           >Edit</a
@@ -61,6 +62,7 @@
           </form>
         </div>
       </div>
+      <% } %>
       <div class="btn-back">
         <a href="/campgrounds">Back to list</a>
       </div>
