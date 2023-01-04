@@ -153,28 +153,28 @@ reviewTextarea?.addEventListener('input', (e: any) => {
 });
 // END Character count of textarea
 
-// START range slide custom
-const rangeRating = document.querySelector('#range-rating') as HTMLInputElement;
-const outputRangeRating = document.querySelector('.range-output');
+// // START range slide custom
+// const rangeRating = document.querySelector('#range-rating') as HTMLInputElement;
+// const outputRangeRating = document.querySelector('.range-output');
 
-const rangeRatingOutput = (size: number): void => {
-  if (outputRangeRating !== null) {
-    outputRangeRating.textContent = '';
-    for (let i = 1; i <= size; i++) {
-      const span = document.createElement('span');
-      span.innerHTML = ' ⭐️ ';
-      outputRangeRating.appendChild(span);
-    }
-  }
-};
+// const rangeRatingOutput = (size: number): void => {
+//   if (outputRangeRating !== null) {
+//     outputRangeRating.textContent = '';
+//     for (let i = 1; i <= size; i++) {
+//       const span = document.createElement('span');
+//       span.innerHTML = ' ⭐️ ';
+//       outputRangeRating.appendChild(span);
+//     }
+//   }
+// };
 
-if (rangeRating != null) {
-  rangeRatingOutput(+rangeRating.value);
-  rangeRating.oninput = (e: any) => {
-    rangeRatingOutput(e.target.value);
-  };
-}
-// END range slide custom
+// if (rangeRating != null) {
+//   rangeRatingOutput(+rangeRating.value);
+//   rangeRating.oninput = (e: any) => {
+//     rangeRatingOutput(e.target.value);
+//   };
+// }
+// // END range slide custom
 
 // START close flash message
 const Default = {

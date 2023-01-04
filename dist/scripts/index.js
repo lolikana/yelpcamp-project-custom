@@ -112,24 +112,6 @@ reviewTextarea?.addEventListener('input', (e) => {
     if (countCurr != null)
         countCurr.textContent = e.target.value.length;
 });
-const rangeRating = document.querySelector('#range-rating');
-const outputRangeRating = document.querySelector('.range-output');
-const rangeRatingOutput = (size) => {
-    if (outputRangeRating !== null) {
-        outputRangeRating.textContent = '';
-        for (let i = 1; i <= size; i++) {
-            const span = document.createElement('span');
-            span.innerHTML = ' ⭐️ ';
-            outputRangeRating.appendChild(span);
-        }
-    }
-};
-if (rangeRating != null) {
-    rangeRatingOutput(+rangeRating.value);
-    rangeRating.oninput = (e) => {
-        rangeRatingOutput(e.target.value);
-    };
-}
 const Default = {
     triggerEl: null,
     transition: 'transition-opacity',
