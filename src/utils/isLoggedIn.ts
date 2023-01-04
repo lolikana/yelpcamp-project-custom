@@ -4,9 +4,9 @@ const isLoggedIn = (req: Request, res: Response, next: NextFunction): void => {
   if (!req.isAuthenticated()) {
     req.session.returnTo = req.originalUrl;
     req.flash('error', 'You must be signed in');
-    res.redirect('/login');
+    return res.redirect('/login');
   }
-  next();
+  return next();
 };
 
 export default isLoggedIn;
