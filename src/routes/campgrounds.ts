@@ -3,6 +3,7 @@ import { RequestHandler, Router } from 'express';
 import { validateCampground } from '../libs/validations';
 import { CampgroundModel } from '../models/campgrounds';
 import { catchAsync } from '../utils/catchAsync';
+import isAuthor from '../utils/isAuthor';
 import isLoggedIn from '../utils/isLoggedIn';
 // import { ExpressError } from '../utils/ExpressError';
 
@@ -53,14 +54,12 @@ router.get(
 router.get(
   '/:id/edit',
   isLoggedIn,
+  // eslint-disable-next-line @typescript-eslint/no-misused-promises
+  isAuthor,
   catchAsync(async (req, res) => {
     try {
       const { id } = req.params;
       const campground = await CampgroundModel.findById(id);
-      if (campground?.author._id.equals((req.user as any)._id) === false) {
-        req.flash('error', 'You do not have perssion to access this page!');
-        return res.redirect(`/campgrounds/${id}`);
-      }
       res.render('campgrounds/edit', { campground });
     } catch (err: unknown) {
       req.flash('error', 'Cannot find that campground to edit');
@@ -72,15 +71,12 @@ router.get(
 router.put(
   '/:id',
   isLoggedIn,
+  // eslint-disable-next-line @typescript-eslint/no-misused-promises
+  isAuthor,
   validateCampground,
   catchAsync(async (req, res) => {
     const { id } = req.params;
-    const campground = await CampgroundModel.findById(id);
-    if (campground?.author._id.equals((req.user as any)._id) === false) {
-      req.flash('error', 'You do not have perssion to do that!');
-      return res.redirect(`/campgrounds/${id}`);
-    }
-    const campground1 = await CampgroundModel.findByIdAndUpdate(
+    const campground = await CampgroundModel.findByIdAndUpdate(
       id,
       {
         ...req.body.campground
@@ -88,7 +84,7 @@ router.put(
       { new: true }
     );
     req.flash('success', 'Successfully updated campground');
-    res.redirect(`/campgrounds/${campground1?._id}`);
+    res.redirect(`/campgrounds/${campground?._id}`);
   }) as RequestHandler
 );
 
