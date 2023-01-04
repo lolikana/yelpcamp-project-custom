@@ -1,3 +1,5 @@
+import { Types } from 'mongoose';
+
 export {};
 
 declare module 'express-session' {
@@ -7,6 +9,7 @@ declare module 'express-session' {
 }
 
 export interface ICampground {
+  _id: Types.ObjectId;
   title: string;
   image: string;
   price: number;
@@ -17,11 +20,13 @@ export interface ICampground {
 }
 
 export interface IReview {
+  _id: Types.ObjectId;
   body: string;
   rating: number;
 }
 
 export interface IUser {
+  _id: Types.ObjectId;
   email: string;
   username: string;
 }

@@ -26,7 +26,7 @@ router.post(
   validateCampground,
   catchAsync(async (req, res, _next) => {
     const campground = new CampgroundModel(req.body.campground);
-    campground.author = (req.user! as any)._id;
+    campground.author = (req.user as any)._id;
     await campground.save();
     req.flash('success', 'Successfully made a new campground!');
     res.redirect(`/campgrounds/${campground._id}`);
@@ -55,7 +55,12 @@ router.get(
   isLoggedIn,
   catchAsync(async (req, res) => {
     try {
-      const campground = await CampgroundModel.findById(req.params.id);
+      const { id } = req.params;
+      const campground = await CampgroundModel.findById(id);
+      if (campground?.author._id.equals((req.user as any)._id) === false) {
+        req.flash('error', 'You do not have perssion to access this page!');
+        return res.redirect(`/campgrounds/${id}`);
+      }
       res.render('campgrounds/edit', { campground });
     } catch (err: unknown) {
       req.flash('error', 'Cannot find that campground to edit');
@@ -70,7 +75,12 @@ router.put(
   validateCampground,
   catchAsync(async (req, res) => {
     const { id } = req.params;
-    const campground = await CampgroundModel.findByIdAndUpdate(
+    const campground = await CampgroundModel.findById(id);
+    if (campground?.author._id.equals((req.user as any)._id) === false) {
+      req.flash('error', 'You do not have perssion to do that!');
+      return res.redirect(`/campgrounds/${id}`);
+    }
+    const campground1 = await CampgroundModel.findByIdAndUpdate(
       id,
       {
         ...req.body.campground
@@ -78,7 +88,7 @@ router.put(
       { new: true }
     );
     req.flash('success', 'Successfully updated campground');
-    res.redirect(`/campgrounds/${campground?._id}`);
+    res.redirect(`/campgrounds/${campground1?._id}`);
   }) as RequestHandler
 );
 
