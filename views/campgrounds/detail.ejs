@@ -1,3 +1,4 @@
+<link rel="stylesheet" href="/styles/stars.css" />
 <article
   class="my-5 flex h-full w-full flex-col rounded border border-slate-100 md:mx-auto md:w-[725px]"
 >
@@ -133,10 +134,9 @@
       <div class="md:w-3/4">
         <div>
           <div class="flex flex-row items-center">
-            <h3 class="text-lg font-bold">Rating:</h3>
-            <span class="rating-review-span ml-2">
-              <% for (let i=1; i <= review.rating; i++) { %> ⭐️ <% } %>
-            </span>
+            <span class="starability-result" data-rating="<%= review.rating %>"
+              >Rated: <%= review.rating %> stars</span
+            >
           </div>
           <p class="opacity-60">
             <em
