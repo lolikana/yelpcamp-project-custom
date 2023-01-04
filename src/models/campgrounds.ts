@@ -15,6 +15,10 @@ const CampgroundSchema = new Schema<ICampground>({
     default: 'no description'
   },
   location: String,
+  author: {
+    type: Types.ObjectId,
+    ref: 'User'
+  },
   reviews: [
     {
       type: Types.ObjectId,

@@ -15,6 +15,10 @@ const CampgroundSchema = new mongoose_1.Schema({
         default: 'no description'
     },
     location: String,
+    author: {
+        type: mongoose_1.Types.ObjectId,
+        ref: 'User'
+    },
     reviews: [
         {
             type: mongoose_1.Types.ObjectId,

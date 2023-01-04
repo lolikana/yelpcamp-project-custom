@@ -12,12 +12,18 @@ export interface ICampground {
   price: number;
   description: string;
   location: string;
-  reviews: Array<{ body: string; rating: number }>;
+  author: IUser;
+  reviews: IReview[];
 }
 
 export interface IReview {
   body: string;
   rating: number;
+}
+
+export interface IUser {
+  email: string;
+  username: string;
 }
 
 export interface TCity {
