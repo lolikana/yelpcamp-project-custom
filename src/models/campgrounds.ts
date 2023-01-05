@@ -5,7 +5,12 @@ import { ReviewModel } from './review';
 
 const CampgroundSchema = new Schema<ICampground>({
   title: String,
-  image: String,
+  images: [
+    {
+      url: String,
+      filename: String
+    }
+  ],
   price: {
     type: Number,
     default: 0

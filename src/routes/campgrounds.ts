@@ -9,13 +9,12 @@ import { catchAsync, isAuthor, isLoggedIn, isValidId } from '../utils';
 export const router = Router();
 const upload = multer({ storage });
 
-router
-  .route('/')
-  .get(catchAsync(campgrounds.index))
-  .post(upload.array('image'), (req, _res) => {
-    console.log(req.body, req.files);
-  });
-// .post(isLoggzedIn, validateCampground, catchAsync(campgrounds.create));
+router.route('/').get(catchAsync(campgrounds.index)).post(
+  isLoggedIn,
+  // validateCampground,
+  upload.array('campground[images]'),
+  catchAsync(campgrounds.create)
+);
 
 router.get('/new', isLoggedIn, (_req, res) => {
   res.render('campgrounds/new');
