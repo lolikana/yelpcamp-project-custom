@@ -243,3 +243,90 @@ errorAlertBtn?.addEventListener('click', () => {
   dismiss.hide();
 });
 // END close flash message
+
+// START Slider
+const slider = (): void => {
+  const slides = document.querySelectorAll('.slide');
+  const btnLeft = document.querySelector('.slider__btn--left');
+  const btnRight = document.querySelector('.slider__btn--right');
+  const dotContainer = document.querySelector('.dots');
+
+  let currSlide = 0;
+  const maxSlide = slides.length;
+
+  /* FUNCTIONS */
+
+  const createDots = function (): void {
+    slides.forEach((_, i) => {
+      dotContainer?.insertAdjacentHTML(
+        'beforeend',
+        `<button class="dots__dot" data-slide="${i}"></button>`
+      );
+    });
+  };
+
+  const activatedDot = (slide: number): void => {
+    document
+      .querySelectorAll('.dots__dot')
+      .forEach(dot => dot.classList.remove('dots__dot--active'));
+
+    document
+      .querySelector(`.dots__dot[data-slide="${slide}"]`)
+      ?.classList.add('dots__dot--active');
+  };
+
+  const goToSlide = (slide: number): void => {
+    slides.forEach((s: any, i) => {
+      s.style.transform = `translateX(${100 * (i - slide)}%)`;
+    });
+  };
+
+  /* NEXT & PREVIOUS */
+  const nextSlide = (): void => {
+    if (currSlide === maxSlide - 1) {
+      currSlide = 0;
+    } else {
+      currSlide++;
+    }
+    goToSlide(currSlide);
+    activatedDot(currSlide);
+  };
+
+  const prevSlide = (): void => {
+    if (currSlide === 0) {
+      currSlide = maxSlide - 1;
+    } else {
+      currSlide--;
+    }
+    goToSlide(currSlide);
+    activatedDot(currSlide);
+  };
+
+  /* INIT */
+  const init = (): void => {
+    goToSlide(0);
+    createDots();
+
+    activatedDot(0);
+  };
+  init();
+
+  /* EVENT HANDLERS */
+  btnRight?.addEventListener('click', nextSlide);
+  btnLeft?.addEventListener('click', prevSlide);
+  document.addEventListener('keydown', function (e) {
+    e.key === 'ArrowLeft' && prevSlide();
+    e.key === 'ArrowRight' && nextSlide();
+  });
+
+  dotContainer?.addEventListener('click', function (e) {
+    const target = e.target as any;
+    if (target.classList.contains('dots__dot') !== null) {
+      const { slide } = target.dataset;
+      goToSlide(slide);
+      activatedDot(slide);
+    }
+  });
+};
+slider();
+// END Slider

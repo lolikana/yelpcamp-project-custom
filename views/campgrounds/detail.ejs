@@ -32,14 +32,15 @@
       <h2><em><%= campground.location %></em></h2>
     </a>
   </div>
-  <div class="relative min-h-[200px] sm:min-h-[400px]">
+  <div class="slider">
     <% for(let img of campground.images) { %>
-    <img
-      src="<%= img.url  %>"
-      alt=""
-      class="absolute h-full w-full object-cover outline outline-1 outline-slate-100 transition delay-200 duration-500 ease-out hover:delay-500 hover:duration-500 hover:ease-out md:hover:scale-110 md:hover:shadow-[0px_0px_38px_30px_#2d3748]"
-    />
+    <div class="slide">
+      <img src="<%= img.url  %>" alt="" />
+    </div>
     <% } %>
+    <button class="slider__btn slider__btn--left">&larr;</button>
+    <button class="slider__btn slider__btn--right">&rarr;</button>
+    <div class="dots"></div>
   </div>
   <div class="my-5 flex grow flex-col px-3">
     <p class="bold h-fit w-fit border-b border-slate-500 px-2">
