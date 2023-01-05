@@ -1,6 +1,6 @@
 import { NextFunction, Request, Response } from 'express';
 
-import { CampgroundModel } from '../models/campgrounds';
+import { CampgroundModel } from '../models';
 
 export const index = async (_req: Request, res: Response): Promise<void> => {
   const campgrounds = await CampgroundModel.find({});
@@ -72,7 +72,7 @@ export const update = async (
     req.flash('error', 'Cannot find that campground');
     return res.redirect('/campgrounds');
   }
-  
+
   req.flash('success', 'Successfully updated campground');
   res.redirect(`/campgrounds/${campground?._id}`);
 };

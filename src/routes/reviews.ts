@@ -2,9 +2,7 @@ import { Router } from 'express';
 
 import * as reviews from '../controllers/reviews';
 import { validateReview } from '../libs/validations';
-import { catchAsync } from '../utils/catchAsync';
-import isLoggedIn from '../utils/isLoggedIn';
-import isReviewAuthor from '../utils/isReviewAuthor';
+import { catchAsync, isLoggedIn, isReviewAuthor } from '../utils';
 
 // Need to merge params to get campgrounds/:id
 export const router = Router({ mergeParams: true });
