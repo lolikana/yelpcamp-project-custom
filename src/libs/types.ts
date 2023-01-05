@@ -11,12 +11,17 @@ declare module 'express-session' {
 export interface ICampground {
   _id: Types.ObjectId;
   title: string;
-  image: string;
+  images: IImgCamp[];
   price: number;
   description: string;
   location: string;
   author: IUser;
   reviews: IReview[];
+}
+
+interface IImgCamp {
+  url: string;
+  filename: string;
 }
 
 export interface IReview {

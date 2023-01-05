@@ -1,3 +1,4 @@
+import { UploadApiResponse } from 'cloudinary';
 import { NextFunction, Request, Response } from 'express';
 
 import { CampgroundModel } from '../models';
@@ -14,6 +15,11 @@ export const create = async (
 ): Promise<void> => {
   const campground = new CampgroundModel(req.body.campground);
   campground.author = (req.user as any)._id;
+  console.log(req.files);
+  campground.images = (req.files as UploadApiResponse).map((el: any) => ({
+    url: el.path,
+    filename: el.filename
+  }));
   await campground.save();
   req.flash('success', 'Successfully made a new campground!');
   res.redirect(`/campgrounds/${campground._id}`);

@@ -5,7 +5,12 @@ const mongoose_1 = require("mongoose");
 const review_1 = require("./review");
 const CampgroundSchema = new mongoose_1.Schema({
     title: String,
-    image: String,
+    images: [
+        {
+            url: String,
+            filename: String
+        }
+    ],
     price: {
         type: Number,
         default: 0
