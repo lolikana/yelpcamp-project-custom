@@ -1,4 +1,5 @@
 import flash from 'connect-flash';
+import * as dotenv from 'dotenv';
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-expect-error
 import engine from 'ejs-mate';
@@ -15,6 +16,11 @@ import { router as authRoutes } from './routes/auth';
 import { router as campgroundsRoutes } from './routes/campgrounds';
 import { router as reviewsRoutes } from './routes/reviews';
 import { ExpressError } from './utils';
+
+if (process.env.NODE_ENV !== 'production') {
+  // see https://github.com/motdotla/dotenv#how-do-i-use-dotenv-with-import
+  dotenv.config();
+}
 
 const app = express();
 
