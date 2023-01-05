@@ -10,11 +10,11 @@ import passport from 'passport';
 import LocalStrategy from 'passport-local';
 import path from 'path';
 
-import { User } from './models/user';
+import { User } from './models';
 import { router as authRoutes } from './routes/auth';
 import { router as campgroundsRoutes } from './routes/campgrounds';
 import { router as reviewsRoutes } from './routes/reviews';
-import { ExpressError } from './utils/ExpressError';
+import { ExpressError } from './utils';
 
 const app = express();
 

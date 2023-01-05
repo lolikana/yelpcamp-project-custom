@@ -1,6 +1,6 @@
 import { NextFunction, Request, Response } from 'express';
 
-import { User } from '../models/user';
+import { User } from '../models';
 
 export const renderRegister = (_req: Request, res: Response): void => {
   res.render('auth/register');

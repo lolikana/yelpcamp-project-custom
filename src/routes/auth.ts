@@ -2,7 +2,7 @@ import { Router } from 'express';
 import passport from 'passport';
 
 import * as auth from '../controllers/auth';
-import { catchAsync } from '../utils/catchAsync';
+import { catchAsync } from '../utils';
 
 export const router = Router();
 

@@ -1,4 +1,4 @@
-export class ExpressError extends Error {
+class ExpressError extends Error {
   status: number;
   constructor(message: string, status: number) {
     super();
@@ -6,3 +6,5 @@ export class ExpressError extends Error {
     this.status = status;
   }
 }
+
+export default ExpressError;

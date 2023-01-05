@@ -1,7 +1,6 @@
 import { Request, Response } from 'express';
 
-import { CampgroundModel } from '../models/campgrounds';
-import { ReviewModel } from '../models/review';
+import { CampgroundModel, ReviewModel } from '../models';
 
 export const create = async (req: Request, res: Response): Promise<void> => {
   const { id } = req.params;

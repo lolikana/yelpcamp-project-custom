@@ -2,10 +2,7 @@ import { Router } from 'express';
 
 import * as campgrounds from '../controllers/campgrounds';
 import { validateCampground } from '../libs/validations';
-import { catchAsync } from '../utils/catchAsync';
-import isAuthor from '../utils/isAuthor';
-import isLoggedIn from '../utils/isLoggedIn';
-import isValidId from '../utils/isValidId';
+import { catchAsync, isAuthor, isLoggedIn, isValidId } from '../utils';
 
 export const router = Router();
 
