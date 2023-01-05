@@ -24,17 +24,18 @@ export const read = async (
   res: Response,
   _next: NextFunction
 ): Promise<void> => {
-  try {
-    const { id } = req.params;
-    const campground = await CampgroundModel.findById(id)
-      .populate({ path: 'reviews', populate: { path: 'author' } })
-      .populate('author');
-    res.render(`campgrounds/detail`, { id, campground });
-  } catch (err: unknown) {
+  const { id } = req.params;
+  const campground = await CampgroundModel.findById(id)
+    .populate({ path: 'reviews', populate: { path: 'author' } })
+    .populate('author');
+
+  if (campground === null) {
     req.flash('error', 'Cannot find that campground');
     return res.redirect('/campgrounds');
     // next(new ExpressError('Campground not found', 404));
   }
+
+  res.render(`campgrounds/detail`, { id, campground });
 };
 
 export const updateForm = async (
@@ -42,14 +43,15 @@ export const updateForm = async (
   res: Response,
   _next: NextFunction
 ): Promise<void> => {
-  try {
-    const { id } = req.params;
-    const campground = await CampgroundModel.findById(id);
-    res.render('campgrounds/edit', { campground });
-  } catch (err: unknown) {
+  const { id } = req.params;
+  const campground = await CampgroundModel.findById(id);
+
+  if (campground === null) {
     req.flash('error', 'Cannot find that campground to edit');
     return res.redirect('/campgrounds');
   }
+
+  res.render('campgrounds/edit', { campground });
 };
 
 export const update = async (
@@ -65,6 +67,12 @@ export const update = async (
     },
     { new: true }
   );
+
+  if (campground === null) {
+    req.flash('error', 'Cannot find that campground');
+    return res.redirect('/campgrounds');
+  }
+  
   req.flash('success', 'Successfully updated campground');
   res.redirect(`/campgrounds/${campground?._id}`);
 };
