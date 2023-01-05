@@ -10,7 +10,7 @@
     >
       <a href="/campgrounds/<%= campground._id %>" class="h-1/2">
         <img
-          src="<%= campground.image %>"
+          src="<%= campground.images[Math.floor(Math.random() * 3)].url %>"
           alt=""
           class="h-[250px] w-full rounded-t-lg object-cover"
         />
