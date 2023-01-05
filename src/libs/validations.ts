@@ -1,7 +1,7 @@
 import { NextFunction, Request, Response } from 'express';
 import Joi from 'joi';
 
-import { ExpressError } from '../utils/ExpressError';
+import { ExpressError } from '../utils';
 
 const campgroundSchema = Joi.object({
   campground: Joi.object({
