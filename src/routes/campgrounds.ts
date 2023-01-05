@@ -1,12 +1,13 @@
 import { Router } from 'express';
 import multer from 'multer';
 
+import { storage } from '../configs/cloudinary';
 import * as campgrounds from '../controllers/campgrounds';
 import { validateCampground } from '../libs/validations';
 import { catchAsync, isAuthor, isLoggedIn, isValidId } from '../utils';
 
 export const router = Router();
-const upload = multer({ dest: 'uploads/' });
+const upload = multer({ storage });
 
 router
   .route('/')
