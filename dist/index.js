@@ -12,11 +12,11 @@ const mongoose_1 = __importDefault(require("mongoose"));
 const passport_1 = __importDefault(require("passport"));
 const passport_local_1 = __importDefault(require("passport-local"));
 const path_1 = __importDefault(require("path"));
-const user_1 = require("./models/user");
+const models_1 = require("./models");
 const auth_1 = require("./routes/auth");
 const campgrounds_1 = require("./routes/campgrounds");
 const reviews_1 = require("./routes/reviews");
-const ExpressError_1 = require("./utils/ExpressError");
+const utils_1 = require("./utils");
 const app = (0, express_1.default)();
 mongoose_1.default
     .connect('mongodb://127.0.0.1:27017/yelp-camp')
@@ -48,9 +48,9 @@ app.use((0, express_session_1.default)(sessionConfig));
 app.use((0, connect_flash_1.default)());
 app.use(passport_1.default.initialize());
 app.use(passport_1.default.session());
-passport_1.default.use(new passport_local_1.default.Strategy(user_1.User.authenticate()));
-passport_1.default.serializeUser(user_1.User.serializeUser());
-passport_1.default.deserializeUser(user_1.User.deserializeUser());
+passport_1.default.use(new passport_local_1.default.Strategy(models_1.User.authenticate()));
+passport_1.default.serializeUser(models_1.User.serializeUser());
+passport_1.default.deserializeUser(models_1.User.deserializeUser());
 app.use((req, res, next) => {
     res.locals.currentUser = req.user;
     res.locals.success = req.flash('success');
@@ -64,7 +64,7 @@ app.get('/', (_req, res) => {
     res.render('index');
 });
 app.all('*', (_req, _res, next) => {
-    next(new ExpressError_1.ExpressError('Page Not Found!!', 404));
+    next(new utils_1.ExpressError('Page Not Found!!', 404));
 });
 app.use((err, _req, res, _next) => {
     const { status = 500, message = 'Oops, something went wrong' } = err;
