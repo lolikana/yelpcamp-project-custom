@@ -5,5 +5,5 @@ const map = new mapboxgl.Map({
     center: [-74.5, 40],
     zoom: 9
 });
-console.log(map);
+new mapboxgl.Marker().setLngLat([-74.5, 40]).addTo(map);
 //# sourceMappingURL=mapbox.js.map
