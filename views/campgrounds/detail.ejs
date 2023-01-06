@@ -43,7 +43,15 @@
     <button class="slider__btn slider__btn--right">&rarr;</button>
     <div class="dots"></div>
   </div>
-  <% } else { %>
+  <% } else if (campground.images.length === 0) { %>
+  <div class="relative min-h-[200px] sm:min-h-[400px]">
+    <img
+      src="https://jmva.or.jp/wp-content/uploads/2018/07/noimage.png"
+      alt=""
+      class="absolute h-full w-full object-cover outline outline-1 outline-slate-100 transition delay-200 duration-500 ease-out hover:delay-500 hover:duration-500 hover:ease-out md:hover:scale-110 md:hover:shadow-[0px_0px_38px_30px_#2d3748]"
+    />
+  </div>
+  <% } else {%>
   <div class="relative min-h-[200px] sm:min-h-[400px]">
     <img
       src="<%= campground.images[0].url  %>"
