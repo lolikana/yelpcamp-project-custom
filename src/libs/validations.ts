@@ -9,7 +9,8 @@ const campgroundSchema = Joi.object({
     location: Joi.string().required(),
     description: Joi.string().required(),
     price: Joi.number().min(0).required()
-  }).required()
+  }).required(),
+  deleteImages: Joi.array()
 });
 
 export const validateCampground = (

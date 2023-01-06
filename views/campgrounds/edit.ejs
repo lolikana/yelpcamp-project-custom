@@ -170,7 +170,6 @@
           type="file"
           name="campground[images]"
           multiple
-          required
         />
         <label
           class="absolute top-3 z-10 origin-[0] -translate-y-6 scale-75 transform text-sm text-gray-500 duration-300 peer-placeholder-shown:translate-y-0 peer-placeholder-shown:scale-100 peer-focus:left-0 peer-focus:-translate-y-6 peer-focus:scale-75 peer-focus:font-medium peer-focus:text-blue-600 dark:text-gray-400"
@@ -182,7 +181,22 @@
           aria-live="polite"
         ></span>
       </div>
-
+      <div>
+        <% campground.images.forEach((img, i) => { %>
+        <div>
+          <label for="image-<%= i %>">
+            <img src="<%= img.url %>" alt="" />
+            <input
+              type="checkbox"
+              id="image-<%= i %>"
+              name="deleteImages[]"
+              value="<%= img.filename %>"
+            />
+            Delete
+          </label>
+        </div>
+        <% }) %>
+      </div>
       <div class="flex flex-col justify-center gap-2">
         <button class="btn-submit">Edit Campground</button>
         <a href="/campgrounds">
