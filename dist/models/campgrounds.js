@@ -22,6 +22,10 @@ const CampgroundSchema = new mongoose_1.Schema({
         default: 'no description'
     },
     location: String,
+    geometry: {
+        type: { type: String, enum: ['Point'], required: true },
+        coordinates: { type: [Number], required: true }
+    },
     author: {
         type: mongoose_1.Types.ObjectId,
         ref: 'User'

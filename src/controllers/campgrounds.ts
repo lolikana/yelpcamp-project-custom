@@ -24,16 +24,16 @@ export const create = async (
   const geoData = await geocoder
     .forwardGeocode({ query: req.body.campground.location, limit: 1 })
     .send();
-  res.send(geoData.body.features[0].geometry.coordinates);
-  // const campground = new CampgroundModel(req.body.campground);
-  // campground.author = (req.user as any)._id;
-  // campground.images = (req.files as UploadApiResponse).map((el: any) => ({
-  //   url: el.path,
-  //   filename: el.filename
-  // }));
-  // await campground.save();
-  // req.flash('success', 'Successfully made a new campground!');
-  // res.redirect(`/campgrounds/${campground._id}`);
+  const campground = new CampgroundModel(req.body.campground);
+  campground.geometry = geoData.body.features[0].geometry;
+  campground.author = (req.user as any)._id;
+  campground.images = (req.files as UploadApiResponse).map((el: any) => ({
+    url: el.path,
+    filename: el.filename
+  }));
+  await campground.save();
+  req.flash('success', 'Successfully made a new campground!');
+  res.redirect(`/campgrounds/${campground._id}`);
 };
 
 export const read = async (

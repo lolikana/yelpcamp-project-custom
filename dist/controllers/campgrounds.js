@@ -20,7 +20,16 @@ const create = async (req, res, _next) => {
     const geoData = await geocoder
         .forwardGeocode({ query: req.body.campground.location, limit: 1 })
         .send();
-    res.send(geoData.body.features[0].geometry.coordinates);
+    const campground = new models_1.CampgroundModel(req.body.campground);
+    campground.geometry = geoData.body.features[0].geometry;
+    campground.author = req.user._id;
+    campground.images = req.files.map((el) => ({
+        url: el.path,
+        filename: el.filename
+    }));
+    await campground.save();
+    req.flash('success', 'Successfully made a new campground!');
+    res.redirect(`/campgrounds/${campground._id}`);
 };
 exports.create = create;
 const read = async (req, res, _next) => {
