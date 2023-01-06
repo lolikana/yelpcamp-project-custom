@@ -3,14 +3,19 @@ import { model, Schema, Types } from 'mongoose';
 import { ICampground } from '../libs/types';
 import { ReviewModel } from './review';
 
+const ImageSchema = new Schema({
+  url: String,
+  filename: String
+});
+
+// why virtual? because we don't need to store in the db
+ImageSchema.virtual('thumbnail').get(function () {
+  return this.url?.replace('/upload', '/upload/w_200');
+});
+
 const CampgroundSchema = new Schema<ICampground>({
   title: String,
-  images: [
-    {
-      url: String,
-      filename: String
-    }
-  ],
+  images: [ImageSchema],
   price: {
     type: Number,
     default: 0

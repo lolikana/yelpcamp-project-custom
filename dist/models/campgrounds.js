@@ -3,14 +3,16 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.CampgroundModel = void 0;
 const mongoose_1 = require("mongoose");
 const review_1 = require("./review");
+const ImageSchema = new mongoose_1.Schema({
+    url: String,
+    filename: String
+});
+ImageSchema.virtual('thumbnail').get(function () {
+    return this.url?.replace('/upload', '/upload/w_200');
+});
 const CampgroundSchema = new mongoose_1.Schema({
     title: String,
-    images: [
-        {
-            url: String,
-            filename: String
-        }
-    ],
+    images: [ImageSchema],
     price: {
         type: Number,
         default: 0

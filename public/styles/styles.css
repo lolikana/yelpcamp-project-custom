@@ -756,6 +756,14 @@ video {
   top: 0px;
 }
 
+.top-1 {
+  top: 0.25rem;
+}
+
+.left-1 {
+  left: 0.25rem;
+}
+
 .z-10 {
   z-index: 10;
 }
@@ -1175,6 +1183,10 @@ video {
 
 .border-t-4 {
   border-top-width: 4px;
+}
+
+.border-solid {
+  border-style: solid;
 }
 
 .border-dashed {
