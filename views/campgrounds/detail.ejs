@@ -1,7 +1,8 @@
+<% layout("layout/boilerplate.ejs") %>
+<div id="mapbox" class="z-30 h-[300px] w-full"></div>
 <article
   class="my-5 flex h-full w-full flex-col rounded border border-slate-100 md:mx-auto md:w-[725px]"
 >
-  <% layout("layout/boilerplate.ejs") %>
   <div class="h-fit px-3 py-2">
     <h1 class="text-2xl"><%= campground.title %></h1>
     <a
@@ -193,3 +194,20 @@
     <% } %>
   </section>
 </article>
+
+<script>
+  mapboxgl.accessToken = '<%- process.env.MAPBOX_TOKEN %>';
+  const map = new mapboxgl.Map({
+    container: 'mapbox', // container ID
+    style: 'mapbox://styles/mapbox/dark-v11', // style URL
+    center: [<%- campground.geometry.coordinates %>], // starting position [lng, lat]
+    zoom: 12 // starting zoom
+  });
+
+  new mapboxgl.Marker().setLngLat([<%- campground.geometry.coordinates %>]).setPopup(
+        new mapboxgl.Popup({offset: 25})
+        .setHTML(
+        '<h3 class="text-black"><%- campground.title %></h3><p class="text-black"><%- campground.location %></p>'
+        )
+    ).addTo(map);
+</script>

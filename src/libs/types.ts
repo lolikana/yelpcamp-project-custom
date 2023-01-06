@@ -15,6 +15,7 @@ export interface ICampground {
   price: number;
   description: string;
   location: string;
+  geometry: IGeometry;
   author: IUser;
   reviews: IReview[];
 }
@@ -22,6 +23,11 @@ export interface ICampground {
 interface IImgCamp {
   url: string;
   filename: string;
+}
+
+interface IGeometry {
+  type: 'Point';
+  coordinates: number[];
 }
 
 export interface IReview {

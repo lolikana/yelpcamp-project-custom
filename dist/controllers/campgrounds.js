@@ -4,15 +4,24 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.destroy = exports.update = exports.updateForm = exports.read = exports.create = exports.index = void 0;
+const geocoding_1 = __importDefault(require("@mapbox/mapbox-sdk/services/geocoding"));
 const cloudinary_1 = __importDefault(require("../configs/cloudinary"));
 const models_1 = require("../models");
+const mapboxToken = process.env.MAPBOX_TOKEN;
+const geocoder = (0, geocoding_1.default)({
+    accessToken: mapboxToken === undefined ? '' : mapboxToken
+});
 const index = async (_req, res) => {
     const campgrounds = await models_1.CampgroundModel.find({});
     res.render('campgrounds/index', { campgrounds });
 };
 exports.index = index;
 const create = async (req, res, _next) => {
+    const geoData = await geocoder
+        .forwardGeocode({ query: req.body.campground.location, limit: 1 })
+        .send();
     const campground = new models_1.CampgroundModel(req.body.campground);
+    campground.geometry = geoData.body.features[0].geometry;
     campground.author = req.user._id;
     campground.images = req.files.map((el) => ({
         url: el.path,

@@ -1,8 +1,15 @@
+import mbxGeocoding from '@mapbox/mapbox-sdk/services/geocoding';
 import { UploadApiResponse } from 'cloudinary';
 import { NextFunction, Request, Response } from 'express';
 
 import cloudinary from '../configs/cloudinary';
 import { CampgroundModel } from '../models';
+
+const mapboxToken = process.env.MAPBOX_TOKEN;
+
+const geocoder = mbxGeocoding({
+  accessToken: mapboxToken === undefined ? '' : mapboxToken
+});
 
 export const index = async (_req: Request, res: Response): Promise<void> => {
   const campgrounds = await CampgroundModel.find({});
@@ -14,7 +21,11 @@ export const create = async (
   res: Response,
   _next: NextFunction
 ): Promise<void> => {
+  const geoData = await geocoder
+    .forwardGeocode({ query: req.body.campground.location, limit: 1 })
+    .send();
   const campground = new CampgroundModel(req.body.campground);
+  campground.geometry = geoData.body.features[0].geometry;
   campground.author = (req.user as any)._id;
   campground.images = (req.files as UploadApiResponse).map((el: any) => ({
     url: el.path,
