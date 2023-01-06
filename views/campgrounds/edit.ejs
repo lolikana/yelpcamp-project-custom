@@ -182,20 +182,28 @@
         ></span>
       </div>
       <div>
-        <% campground.images.forEach((img, i) => { %>
-        <div>
-          <label for="image-<%= i %>">
-            <img src="<%= img.url %>" alt="" />
-            <input
-              type="checkbox"
-              id="image-<%= i %>"
-              name="deleteImages[]"
-              value="<%= img.filename %>"
-            />
-            Delete
-          </label>
-        </div>
-        <% }) %>
+        <fieldset class="border border-solid p-2">
+          <legend class="px-2">Select image(s) to delete</legend>
+          <div class="flex flex-wrap justify-center gap-2">
+            <% campground.images.forEach((img, i) => { %>
+            <div class="relative mb-1">
+              <input
+                type="checkbox"
+                id="image-<%= i %>"
+                name="deleteImages[]"
+                value="<%= img.filename %>"
+                class="absolute top-1 left-1"
+              />
+              <label for="image-<%= i %>">
+                <img
+                  src="<%= img.thumbnail %>"
+                  alt="image-<%= i %> thumbnail"
+                />
+              </label>
+            </div>
+            <% }) %>
+          </div>
+        </fieldset>
       </div>
       <div class="flex flex-col justify-center gap-2">
         <button class="btn-submit">Edit Campground</button>
