@@ -1,6 +1,7 @@
 import { UploadApiResponse } from 'cloudinary';
 import { NextFunction, Request, Response } from 'express';
 
+import cloudinary from '../configs/cloudinary';
 import { CampgroundModel } from '../models';
 
 export const index = async (_req: Request, res: Response): Promise<void> => {
@@ -83,7 +84,17 @@ export const update = async (
     filename: el.filename
   }));
   campground.images.push(...imgs);
+
   await campground.save();
+
+  if (req.body.deleteImages !== undefined) {
+    for (const filename of req.body.deleteImages) {
+      await cloudinary.uploader.destroy(filename);
+    }
+    await campground.updateOne({
+      $pull: { images: { filename: { $in: req.body.deleteImages } } }
+    });
+  }
   req.flash('success', 'Successfully updated campground');
   res.redirect(`/campgrounds/${campground?._id}`);
 };
