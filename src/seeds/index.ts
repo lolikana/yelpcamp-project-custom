@@ -29,6 +29,10 @@ const seedDB = async (): Promise<void> => {
       description:
         'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Corrupti sit commodi quos autem asperiores esse nihil magni in iste sapiente. Enim nemo officia debitis repellendus, sunt numquam dicta expedita perferendis.',
       price: randomPrice,
+      geometry: {
+        type: 'Point',
+        coordinates: [-113.1331, 47.0202]
+      },
       location: `${cities[random1000].city}, ${cities[random1000].state}`,
       images: [
         {
