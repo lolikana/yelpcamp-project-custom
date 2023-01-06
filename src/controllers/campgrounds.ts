@@ -15,7 +15,6 @@ export const create = async (
 ): Promise<void> => {
   const campground = new CampgroundModel(req.body.campground);
   campground.author = (req.user as any)._id;
-  console.log(req.files);
   campground.images = (req.files as UploadApiResponse).map((el: any) => ({
     url: el.path,
     filename: el.filename
@@ -79,6 +78,12 @@ export const update = async (
     return res.redirect('/campgrounds');
   }
 
+  const imgs = (req.files as UploadApiResponse).map((el: any) => ({
+    url: el.path,
+    filename: el.filename
+  }));
+  campground.images.push(...imgs);
+  await campground.save();
   req.flash('success', 'Successfully updated campground');
   res.redirect(`/campgrounds/${campground?._id}`);
 };
