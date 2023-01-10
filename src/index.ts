@@ -25,6 +25,8 @@ if (process.env.NODE_ENV !== 'production') {
 
 const app = express();
 
+// const dbUrl = `${process.env.DB_URL}`;
+
 mongoose
   .connect('mongodb://127.0.0.1:27017/yelp-camp')
   .then(res => res)
