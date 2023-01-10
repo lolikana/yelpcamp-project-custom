@@ -48,14 +48,14 @@ app.use(express.static(path.join(__dirname, '../dist')));
 app.use(express.urlencoded({ extended: true }));
 app.use(methodOverride('_method'));
 
-// const dbUrl = `${process.env.DB_URL}`;
-const dbUrl = 'mongodb://127.0.0.1:27017/yelp-camp';
+const dbUrl = `${process.env.DB_URL}`;
+// const dbUrl = 'mongodb://127.0.0.1:27017/yelp-camp';
 
 const store = MongoDBStore.create({
   mongoUrl: dbUrl,
   touchAfter: 24 * 60 * 60,
   crypto: {
-    secret: 'thisshouldbeabettersecret'
+    secret: `${process.env.SESSION_SECRET}`
   }
 });
 
@@ -66,7 +66,7 @@ store.on('error', (err: unknown) => {
 const sessionConfig = {
   store,
   name: '_ycc',
-  secret: 'thisshouldbeabettersecret',
+  secret: `${process.env.SESSION_SECRET}`,
   resave: false,
   saveUninitialized: true,
   cookie: {
