@@ -30,6 +30,7 @@ const connect_flash_1 = __importDefault(require("connect-flash"));
 const dotenv = __importStar(require("dotenv"));
 const ejs_mate_1 = __importDefault(require("ejs-mate"));
 const express_1 = __importDefault(require("express"));
+const express_mongo_sanitize_1 = __importDefault(require("express-mongo-sanitize"));
 const express_session_1 = __importDefault(require("express-session"));
 const method_override_1 = __importDefault(require("method-override"));
 const mongoose_1 = __importDefault(require("mongoose"));
@@ -75,6 +76,7 @@ app.use((0, express_session_1.default)(sessionConfig));
 app.use((0, connect_flash_1.default)());
 app.use(passport_1.default.initialize());
 app.use(passport_1.default.session());
+app.use((0, express_mongo_sanitize_1.default)());
 passport_1.default.use(new passport_local_1.default.Strategy(models_1.User.authenticate()));
 passport_1.default.serializeUser(models_1.User.serializeUser());
 passport_1.default.deserializeUser(models_1.User.deserializeUser());
@@ -87,7 +89,8 @@ app.use((req, res, next) => {
 app.use('/', auth_1.router);
 app.use('/campgrounds', campgrounds_1.router);
 app.use('/campgrounds/:id/reviews', reviews_1.router);
-app.get('/', (_req, res) => {
+app.get('/', (req, res) => {
+    console.log(req.query);
     res.render('index');
 });
 app.all('*', (_req, _res, next) => {

@@ -4,6 +4,7 @@ import * as dotenv from 'dotenv';
 // @ts-expect-error
 import engine from 'ejs-mate';
 import express, { NextFunction, Request, Response } from 'express';
+import mongoSanitize from 'express-mongo-sanitize';
 import session from 'express-session';
 import methodOverride from 'method-override';
 import mongoose from 'mongoose';
@@ -60,6 +61,7 @@ app.use(flash());
 
 app.use(passport.initialize());
 app.use(passport.session());
+app.use(mongoSanitize());
 // eslint-disable-next-line @typescript-eslint/no-misused-promises
 passport.use(new LocalStrategy.Strategy(User.authenticate()));
 
@@ -77,7 +79,8 @@ app.use('/', authRoutes);
 app.use('/campgrounds', campgroundsRoutes);
 app.use('/campgrounds/:id/reviews', reviewsRoutes);
 
-app.get('/', (_req, res) => {
+app.get('/', (req, res) => {
+  console.log(req.query);
   res.render('index');
 });
 
