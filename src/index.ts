@@ -120,7 +120,8 @@ app.use(
         'blob:',
         'data:',
         'https://res.cloudinary.com/dgjgwco0f/',
-        'https://images.unsplash.com/'
+        'https://images.unsplash.com/',
+        'https://www.theglobeandmail.com/resizer/'
       ],
       fontSrc: ["'self'", ...fontSrcUrls]
     }
