@@ -32,6 +32,7 @@ const ejs_mate_1 = __importDefault(require("ejs-mate"));
 const express_1 = __importDefault(require("express"));
 const express_mongo_sanitize_1 = __importDefault(require("express-mongo-sanitize"));
 const express_session_1 = __importDefault(require("express-session"));
+const helmet_1 = __importDefault(require("helmet"));
 const method_override_1 = __importDefault(require("method-override"));
 const mongoose_1 = __importDefault(require("mongoose"));
 const passport_1 = __importDefault(require("passport"));
@@ -69,7 +70,6 @@ const sessionConfig = {
     saveUninitialized: true,
     cookie: {
         HttpOnly: true,
-        secure: true,
         expires: new Date(Date.now() + 1000 * 60 * 60 * 24 * 7),
         maxAge: 1000 * 60 * 60 * 24 * 7
     }
@@ -79,6 +79,47 @@ app.use((0, connect_flash_1.default)());
 app.use(passport_1.default.initialize());
 app.use(passport_1.default.session());
 app.use((0, express_mongo_sanitize_1.default)());
+const scriptSrcUrls = [
+    'https://stackpath.bootstrapcdn.com/',
+    'https://api.tiles.mapbox.com/',
+    'https://api.mapbox.com/',
+    'https://kit.fontawesome.com/',
+    'https://cdnjs.cloudflare.com/',
+    'https://cdn.jsdelivr.net'
+];
+const styleSrcUrls = [
+    'https://kit-free.fontawesome.com/',
+    'https://stackpath.bootstrapcdn.com/',
+    'https://api.mapbox.com/',
+    'https://api.tiles.mapbox.com/',
+    'https://fonts.googleapis.com/',
+    'https://use.fontawesome.com/'
+];
+const connectSrcUrls = [
+    'https://api.mapbox.com/',
+    'https://a.tiles.mapbox.com/',
+    'https://b.tiles.mapbox.com/',
+    'https://events.mapbox.com/'
+];
+const fontSrcUrls = [];
+app.use(helmet_1.default.contentSecurityPolicy({
+    directives: {
+        defaultSrc: [],
+        connectSrc: ["'self'", ...connectSrcUrls],
+        scriptSrc: ["'unsafe-inline'", "'self'", ...scriptSrcUrls],
+        styleSrc: ["'self'", "'unsafe-inline'", ...styleSrcUrls],
+        workerSrc: ["'self'", 'blob:'],
+        objectSrc: [],
+        imgSrc: [
+            "'self'",
+            'blob:',
+            'data:',
+            'https://res.cloudinary.com/dgjgwco0f/',
+            'https://images.unsplash.com/'
+        ],
+        fontSrc: ["'self'", ...fontSrcUrls]
+    }
+}));
 passport_1.default.use(new passport_local_1.default.Strategy(models_1.User.authenticate()));
 passport_1.default.serializeUser(models_1.User.serializeUser());
 passport_1.default.deserializeUser(models_1.User.deserializeUser());
@@ -91,8 +132,7 @@ app.use((req, res, next) => {
 app.use('/', auth_1.router);
 app.use('/campgrounds', campgrounds_1.router);
 app.use('/campgrounds/:id/reviews', reviews_1.router);
-app.get('/', (req, res) => {
-    console.log(req.query);
+app.get('/', (_req, res) => {
     res.render('index');
 });
 app.all('*', (_req, _res, next) => {

@@ -6,6 +6,7 @@ import engine from 'ejs-mate';
 import express, { NextFunction, Request, Response } from 'express';
 import mongoSanitize from 'express-mongo-sanitize';
 import session from 'express-session';
+import helmet from 'helmet';
 import methodOverride from 'method-override';
 import mongoose from 'mongoose';
 import passport from 'passport';
@@ -53,7 +54,7 @@ const sessionConfig = {
   saveUninitialized: true,
   cookie: {
     HttpOnly: true,
-    secure: true,
+    // secure: true,
     expires: new Date(Date.now() + 1000 * 60 * 60 * 24 * 7),
     maxAge: 1000 * 60 * 60 * 24 * 7
   }
@@ -64,6 +65,51 @@ app.use(flash());
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(mongoSanitize());
+
+const scriptSrcUrls = [
+  'https://stackpath.bootstrapcdn.com/',
+  'https://api.tiles.mapbox.com/',
+  'https://api.mapbox.com/',
+  'https://kit.fontawesome.com/',
+  'https://cdnjs.cloudflare.com/',
+  'https://cdn.jsdelivr.net'
+];
+const styleSrcUrls = [
+  'https://kit-free.fontawesome.com/',
+  'https://stackpath.bootstrapcdn.com/',
+  'https://api.mapbox.com/',
+  'https://api.tiles.mapbox.com/',
+  'https://fonts.googleapis.com/',
+  'https://use.fontawesome.com/'
+];
+const connectSrcUrls = [
+  'https://api.mapbox.com/',
+  'https://a.tiles.mapbox.com/',
+  'https://b.tiles.mapbox.com/',
+  'https://events.mapbox.com/'
+];
+const fontSrcUrls: never[] = [];
+app.use(
+  helmet.contentSecurityPolicy({
+    directives: {
+      defaultSrc: [],
+      connectSrc: ["'self'", ...connectSrcUrls],
+      scriptSrc: ["'unsafe-inline'", "'self'", ...scriptSrcUrls],
+      styleSrc: ["'self'", "'unsafe-inline'", ...styleSrcUrls],
+      workerSrc: ["'self'", 'blob:'],
+      objectSrc: [],
+      imgSrc: [
+        "'self'",
+        'blob:',
+        'data:',
+        'https://res.cloudinary.com/dgjgwco0f/',
+        'https://images.unsplash.com/'
+      ],
+      fontSrc: ["'self'", ...fontSrcUrls]
+    }
+  })
+);
+
 // eslint-disable-next-line @typescript-eslint/no-misused-promises
 passport.use(new LocalStrategy.Strategy(User.authenticate()));
 
@@ -81,8 +127,7 @@ app.use('/', authRoutes);
 app.use('/campgrounds', campgroundsRoutes);
 app.use('/campgrounds/:id/reviews', reviewsRoutes);
 
-app.get('/', (req, res) => {
-  console.log(req.query);
+app.get('/', (_req, res) => {
   res.render('index');
 });
 
