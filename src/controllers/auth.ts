@@ -42,5 +42,5 @@ export const login = (req: Request, res: Response): void => {
 export const logout = (req: Request, res: Response): void => {
   req.logout((err: unknown) => err !== undefined && console.log(err));
   req.flash('success', 'logout');
-  res.redirect('/campgrounds');
+  res.redirect('/');
 };

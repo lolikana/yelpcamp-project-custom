@@ -38,7 +38,7 @@ exports.login = login;
 const logout = (req, res) => {
     req.logout((err) => err !== undefined && console.log(err));
     req.flash('success', 'logout');
-    res.redirect('/campgrounds');
+    res.redirect('/');
 };
 exports.logout = logout;
 //# sourceMappingURL=auth.js.map

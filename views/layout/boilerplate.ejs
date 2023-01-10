@@ -3,7 +3,7 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Comptable" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Layout</title>
+    <title>Yelpcamp</title>
     <link rel="stylesheet" href="/styles/styles.css" />
     <link rel="stylesheet" href="/styles/stars.css" />
     <link rel="stylesheet" href="/styles/slider.css" />
@@ -13,13 +13,13 @@
     />
     <script src="https://api.mapbox.com/mapbox-gl-js/v2.12.0/mapbox-gl.js"></script>
   </head>
+
   <body class="flex min-w-[375px] flex-col bg-slate-900 text-slate-100">
-    <%- include("../partials/navbar.ejs") %> <%-
-    include("../partials/flash.ejs") %>
+    <%- include("../partials/navbar.ejs") %>
     <main
       class="main__container flex min-h-full flex-col justify-center overflow-y-scroll px-5"
     >
-      <%- body %>
+      <%- include("../partials/flash.ejs") %> <%- body %>
     </main>
     <%- include("../partials/footer.ejs") %>
     <script src="/scripts/index.js"></script>
