@@ -169,7 +169,7 @@
       const features = map.queryRenderedFeatures(e.point, {
         layers: ['clusters']
       });
-      const clusterId = features[0].properties?.cluster_id;
+      const clusterId = features[0].properties.cluster_id;
       map.getSource('campgrounds').getClusterExpansionZoom(clusterId, (err, zoom) => {
         map.easeTo({
           center: features[0].geometry.coordinates,
@@ -185,8 +185,7 @@
     map.on('click', 'unclustered-point', e => {
       if (e.features === undefined) return;
       const coordinates = e.features[0].geometry.coordinates.slice();
-      const mag = e.features[0].properties?.mag;
-      const tsunami = e.features[0].properties?.tsunami === 1 ? 'yes' : 'no';
+      const {popUpMarkup} = e.features[0].properties;
 
       // Ensure that if the map is zoomed out such that
       // multiple copies of the feature are visible, the
@@ -197,7 +196,7 @@
 
       new mapboxgl.Popup()
         .setLngLat(coordinates)
-        .setHTML(`<p class="text-black">${campgrounds.features.title}</p>`)
+        .setHTML(popUpMarkup)
         .addTo(map);
     });
 
