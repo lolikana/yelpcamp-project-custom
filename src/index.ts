@@ -1,4 +1,5 @@
 import flash from 'connect-flash';
+import MongoDBStore from 'connect-mongo';
 import * as dotenv from 'dotenv';
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-expect-error
@@ -25,8 +26,6 @@ if (process.env.NODE_ENV !== 'production') {
 
 const app = express();
 
-// const dbUrl = `${process.env.DB_URL}`;
-
 mongoose
   .connect('mongodb://127.0.0.1:27017/yelp-camp')
   .then(res => res)
@@ -49,7 +48,23 @@ app.use(express.static(path.join(__dirname, '../dist')));
 app.use(express.urlencoded({ extended: true }));
 app.use(methodOverride('_method'));
 
+// const dbUrl = `${process.env.DB_URL}`;
+const dbUrl = 'mongodb://127.0.0.1:27017/yelp-camp';
+
+const store = MongoDBStore.create({
+  mongoUrl: dbUrl,
+  touchAfter: 24 * 60 * 60,
+  crypto: {
+    secret: 'thisshouldbeabettersecret'
+  }
+});
+
+store.on('error', (err: unknown) => {
+  console.log(err);
+});
+
 const sessionConfig = {
+  store,
   name: '_ycc',
   secret: 'thisshouldbeabettersecret',
   resave: false,

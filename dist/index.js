@@ -27,6 +27,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const connect_flash_1 = __importDefault(require("connect-flash"));
+const connect_mongo_1 = __importDefault(require("connect-mongo"));
 const dotenv = __importStar(require("dotenv"));
 const ejs_mate_1 = __importDefault(require("ejs-mate"));
 const express_1 = __importDefault(require("express"));
@@ -63,7 +64,19 @@ app.use(express_1.default.static(path_1.default.join(__dirname, '../public')));
 app.use(express_1.default.static(path_1.default.join(__dirname, '../dist')));
 app.use(express_1.default.urlencoded({ extended: true }));
 app.use((0, method_override_1.default)('_method'));
+const dbUrl = 'mongodb://127.0.0.1:27017/yelp-camp';
+const store = connect_mongo_1.default.create({
+    mongoUrl: dbUrl,
+    touchAfter: 24 * 60 * 60,
+    crypto: {
+        secret: 'thisshouldbeabettersecret'
+    }
+});
+store.on('error', (err) => {
+    console.log(err);
+});
 const sessionConfig = {
+    store,
     name: '_ycc',
     secret: 'thisshouldbeabettersecret',
     resave: false,
