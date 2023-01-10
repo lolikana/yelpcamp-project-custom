@@ -16,7 +16,9 @@
       <h1 class="text-center text-5xl font-extrabold leading-tight text-white">
         <%= err.message %>
       </h1>
+      <% if (process.env.NODE_ENV !== "production") { %>
       <p class="w-3/4 text-sm"><%= err.stack %></p>
+      <% } %>
       <p class="mt-10 animate-bounce text-8xl font-extrabold text-white">
         <%= err.status %>
       </p>
