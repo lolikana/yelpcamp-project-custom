@@ -63,11 +63,13 @@ app.use(express_1.default.static(path_1.default.join(__dirname, '../dist')));
 app.use(express_1.default.urlencoded({ extended: true }));
 app.use((0, method_override_1.default)('_method'));
 const sessionConfig = {
+    name: '_ycc',
     secret: 'thisshouldbeabettersecret',
     resave: false,
     saveUninitialized: true,
     cookie: {
         HttpOnly: true,
+        secure: true,
         expires: new Date(Date.now() + 1000 * 60 * 60 * 24 * 7),
         maxAge: 1000 * 60 * 60 * 24 * 7
     }

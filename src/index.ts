@@ -47,11 +47,13 @@ app.use(express.urlencoded({ extended: true }));
 app.use(methodOverride('_method'));
 
 const sessionConfig = {
+  name: '_ycc',
   secret: 'thisshouldbeabettersecret',
   resave: false,
   saveUninitialized: true,
   cookie: {
     HttpOnly: true,
+    secure: true,
     expires: new Date(Date.now() + 1000 * 60 * 60 * 24 * 7),
     maxAge: 1000 * 60 * 60 * 24 * 7
   }
