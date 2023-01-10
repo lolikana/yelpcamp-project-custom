@@ -3,6 +3,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.CampgroundModel = void 0;
 const mongoose_1 = require("mongoose");
 const review_1 = require("./review");
+const opts = { toJSON: { virtuals: true } };
 const ImageSchema = new mongoose_1.Schema({
     url: String,
     filename: String
@@ -36,6 +37,10 @@ const CampgroundSchema = new mongoose_1.Schema({
             ref: 'Review'
         }
     ]
+}, opts);
+CampgroundSchema.virtual('properties.popUpMarkup').get(function () {
+    return `<div class="text-black"><strong><a href="/campgrounds/${this._id}">${this.title}</a></strong>
+  <p>${this.location}</p></div>`;
 });
 CampgroundSchema.post('findOneAndDelete', async (doc) => {
     if (doc !== null) {

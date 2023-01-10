@@ -3,6 +3,8 @@ import { model, Schema, Types } from 'mongoose';
 import { ICampground } from '../libs/types';
 import { ReviewModel } from './review';
 
+const opts = { toJSON: { virtuals: true } };
+
 const ImageSchema = new Schema({
   url: String,
   filename: String
@@ -13,32 +15,40 @@ ImageSchema.virtual('thumbnail').get(function () {
   return this.url?.replace('/upload', '/upload/w_200');
 });
 
-const CampgroundSchema = new Schema<ICampground>({
-  title: String,
-  images: [ImageSchema],
-  price: {
-    type: Number,
-    default: 0
-  },
-  description: {
-    type: String,
-    default: 'no description'
-  },
-  location: String,
-  geometry: {
-    type: { type: String, enum: ['Point'], required: true },
-    coordinates: { type: [Number], required: true }
-  },
-  author: {
-    type: Types.ObjectId,
-    ref: 'User'
-  },
-  reviews: [
-    {
+const CampgroundSchema = new Schema<ICampground>(
+  {
+    title: String,
+    images: [ImageSchema],
+    price: {
+      type: Number,
+      default: 0
+    },
+    description: {
+      type: String,
+      default: 'no description'
+    },
+    location: String,
+    geometry: {
+      type: { type: String, enum: ['Point'], required: true },
+      coordinates: { type: [Number], required: true }
+    },
+    author: {
       type: Types.ObjectId,
-      ref: 'Review'
-    }
-  ]
+      ref: 'User'
+    },
+    reviews: [
+      {
+        type: Types.ObjectId,
+        ref: 'Review'
+      }
+    ]
+  },
+  opts
+);
+
+CampgroundSchema.virtual('properties.popUpMarkup').get(function () {
+  return `<div class="text-black"><strong><a href="/campgrounds/${this._id}">${this.title}</a></strong>
+  <p>${this.location}</p></div>`;
 });
 
 // query middleware "findOneAndDelete" is connected to delete method "findByIdAndDelete"
