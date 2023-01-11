@@ -48,8 +48,9 @@ if (process.env.NODE_ENV !== 'production') {
     dotenv.config();
 }
 const app = (0, express_1.default)();
+const dbUrl = `${process.env.DB_URL}`;
 mongoose_1.default
-    .connect('mongodb://127.0.0.1:27017/yelp-camp')
+    .connect(dbUrl)
     .then(res => res)
     .catch(err => console.log(err));
 const db = mongoose_1.default.connection;
@@ -64,7 +65,6 @@ app.use(express_1.default.static(path_1.default.join(__dirname, '../public')));
 app.use(express_1.default.static(path_1.default.join(__dirname, '../dist')));
 app.use(express_1.default.urlencoded({ extended: true }));
 app.use((0, method_override_1.default)('_method'));
-const dbUrl = `${process.env.DB_URL}`;
 const store = connect_mongo_1.default.create({
     mongoUrl: dbUrl,
     touchAfter: 24 * 60 * 60,

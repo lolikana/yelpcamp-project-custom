@@ -26,8 +26,11 @@ if (process.env.NODE_ENV !== 'production') {
 
 const app = express();
 
+const dbUrl = `${process.env.DB_URL}`;
+// const dbUrl = 'mongodb://127.0.0.1:27017/yelp-camp';
+
 mongoose
-  .connect('mongodb://127.0.0.1:27017/yelp-camp')
+  .connect(dbUrl)
   .then(res => res)
   .catch(err => console.log(err));
 
@@ -47,9 +50,6 @@ app.use(express.static(path.join(__dirname, '../dist')));
 // It parses incoming requests with urlencoded payloads and is based on body-parser.
 app.use(express.urlencoded({ extended: true }));
 app.use(methodOverride('_method'));
-
-const dbUrl = `${process.env.DB_URL}`;
-// const dbUrl = 'mongodb://127.0.0.1:27017/yelp-camp';
 
 const store = MongoDBStore.create({
   mongoUrl: dbUrl,
