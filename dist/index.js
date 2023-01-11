@@ -83,14 +83,14 @@ const sessionConfig = {
     saveUninitialized: true,
     cookie: {
         HttpOnly: true,
+        secure: true,
         expires: new Date(Date.now() + 1000 * 60 * 60 * 24 * 7),
         maxAge: 1000 * 60 * 60 * 24 * 7
     }
 };
+app.set('trust proxy', 1);
 app.use((0, express_session_1.default)(sessionConfig));
 app.use((0, connect_flash_1.default)());
-app.use(passport_1.default.initialize());
-app.use(passport_1.default.session());
 app.use((0, express_mongo_sanitize_1.default)());
 const scriptSrcUrls = [
     'https://stackpath.bootstrapcdn.com/',
@@ -134,6 +134,8 @@ app.use(helmet_1.default.contentSecurityPolicy({
         fontSrc: ["'self'", ...fontSrcUrls]
     }
 }));
+app.use(passport_1.default.initialize());
+app.use(passport_1.default.session());
 passport_1.default.use(new passport_local_1.default.Strategy(models_1.User.authenticate()));
 passport_1.default.serializeUser(models_1.User.serializeUser());
 passport_1.default.deserializeUser(models_1.User.deserializeUser());

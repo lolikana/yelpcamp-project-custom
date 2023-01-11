@@ -76,11 +76,11 @@ const sessionConfig = {
     maxAge: 1000 * 60 * 60 * 24 * 7
   }
 };
+
+app.set('trust proxy', 1);
 app.use(session(sessionConfig));
 app.use(flash());
 
-app.use(passport.initialize());
-app.use(passport.session());
 app.use(mongoSanitize());
 
 const scriptSrcUrls = [
@@ -128,6 +128,8 @@ app.use(
   })
 );
 
+app.use(passport.initialize());
+app.use(passport.session());
 // eslint-disable-next-line @typescript-eslint/no-misused-promises
 passport.use(new LocalStrategy.Strategy(User.authenticate()));
 
